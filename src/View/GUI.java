@@ -8,7 +8,7 @@ public class GUI extends JPanel
 
 	public GUI()
 	{
-		frame = new JFrame("Puzzle420");
+		frame = new JFrame("Puzzles");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
