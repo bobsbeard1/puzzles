@@ -1,6 +1,7 @@
 package Model.Puzzles;
 
 import Model.Puzzles.Parts.CrossWordCell;
+import Utility.RandomHelper;
 
 
 
@@ -18,7 +19,7 @@ public class PuzzleGenerator
 			{
 				for (int j = 0; j < cellArray[0].length; j++)
 				{
-					cellArray[i][j] = new CrossWordCell('a');
+					cellArray[i][j] = new CrossWordCell(RandomHelper.getRandomChar());
 				}
 			}
 			
