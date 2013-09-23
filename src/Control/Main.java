@@ -13,6 +13,7 @@ public class Main
 	//Currently acting as controller
 	public static void main(String[] args)
 	{
+		final GUI gui = new GUI();
 		
 		
 		CrossWord word = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord);
@@ -36,14 +37,14 @@ public class Main
 		
 		
 		
-		
+		gui.getPuzzleArea().setActivePuzzle(word);
 		
 
 		SwingUtilities.invokeLater(new Runnable()
 		{
 			public void run()
 			{
-				GUI gui = new GUI();
+				
 				gui.draw();
 			
 			}

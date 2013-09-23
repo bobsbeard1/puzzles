@@ -22,10 +22,21 @@ public class CrossWord extends Puzzle
 		wordMap = map;
 	}
 	@Override
-	public char charAt(Dimension dim)
+	public char charAt(int x, int y)
 	{
-		return ((CrossWordCell)cellArray[dim.width][dim.height]).getChar();
+		return ((CrossWordCell)cellArray[x][y]).getChar();
 	}
+	
+	public CrossWordCell getCell(int x, int y)
+	{
+		return (CrossWordCell)cellArray[x][y];
+	}
+	
+	public CrossWordCell[][] getCellArray()
+	{
+		return (CrossWordCell[][])cellArray;
+	}
+	
 	@Override
 	public boolean addWord(String word, WordLocation location)
 	{

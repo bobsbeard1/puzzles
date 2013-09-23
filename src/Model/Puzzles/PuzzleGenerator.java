@@ -12,7 +12,7 @@ public class PuzzleGenerator
 		{
 		case CrossWord:
 			
-			CrossWordCell[][] cellArray = new CrossWordCell[6][6];
+			CrossWordCell[][] cellArray = new CrossWordCell[25][25];
 			
 			for (int i = 0; i < cellArray.length; i++)
 			{
@@ -21,6 +21,14 @@ public class PuzzleGenerator
 					cellArray[i][j] = new CrossWordCell('a');
 				}
 			}
+			
+			cellArray[0][0].setChar('#');
+			cellArray[0][1].setChar('#');
+			cellArray[0][2].setChar('#');
+			cellArray[0][3].setChar('#');
+			cellArray[1][3].setChar('#');
+			cellArray[5][5].setChar('#');
+			cellArray[2][2].setChar('#');
 			return new CrossWord(cellArray);
 			
 		case WordSearch:

@@ -8,7 +8,7 @@ public class WordSearch extends Puzzle
 {
 
 	@Override
-	public char charAt(Dimension dim)
+	public char charAt(int x, int y)
 	{
 		// TODO Auto-generated method stub
 		return 0;

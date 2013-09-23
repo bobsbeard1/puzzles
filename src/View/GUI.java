@@ -7,8 +7,11 @@ import View.Components.*;
 
 public class GUI extends JFrame
 {
+	PuzzleArea puzzleArea;
+	ToolBar toolbar;
+	WordListArea wordListArea;
 	
-
+	
 	public GUI()
 	{
 		JPanel mainPanel = new JPanel(new BorderLayout());
@@ -20,9 +23,9 @@ public class GUI extends JFrame
 		setLocationRelativeTo(null);
 		
 		
-		PuzzleArea puzzleArea = new PuzzleArea();
-		ToolBar toolbar = new ToolBar();
-		WordListArea wordListArea = new WordListArea();
+		puzzleArea = new PuzzleArea();
+		toolbar = new ToolBar();
+		wordListArea = new WordListArea();
 		
 		mainPanel.add(toolbar,BorderLayout.WEST);
 		mainPanel.add(wordListArea,BorderLayout.EAST);
@@ -31,6 +34,11 @@ public class GUI extends JFrame
 		add(mainPanel);
 
 
+	}
+	
+	public PuzzleArea getPuzzleArea()
+	{
+		return puzzleArea;
 	}
 
 	
