@@ -10,7 +10,7 @@ import java.util.Random;
 public class RandomHelper
 {	
 	private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
-	private static Random rand = new Random();
+	public static Random rand = new Random();
 	
 	public static char getRandomChar()
 	{

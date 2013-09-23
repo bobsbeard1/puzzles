@@ -19,9 +19,11 @@ public class Main
 		final GUI gui = new GUI();
 		
 		String path = "moby_list.txt";
-		WordList wordList = new WordList(FileManager.readFile(path));
-		
+		WordList wordList = new WordList(FileManager.getSubWordListFromFile(path,50));
 		wordList.printList();
+		System.out.println(wordList.getLength());
+		
+		
 		
 		
 		CrossWord word = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord);
@@ -37,11 +39,8 @@ public class Main
 		word.printCrossWord();
 		
 		word.setWordMap(map1);
-		System.out.println(word.getWordMap().size());
-		word2.setWordMap(map2);
 		
-		System.out.println(word.getWordMap().size());
-		System.out.println(word2.getWordMap().size());
+		word2.setWordMap(map2);
 		
 		
 		

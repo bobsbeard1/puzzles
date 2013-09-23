@@ -56,6 +56,11 @@ public class WordList
 			System.out.println(list.get(i));
 		}
 	}
+	
+	public int getLength()
+	{
+		return list.size();
+	}
 
 	/**
 	 * Adds specified word to the end of the list
