@@ -7,7 +7,6 @@ import Model.Puzzles.*;
 import Model.Puzzles.Parts.WordLocation;
 
 import javax.swing.*;
-import javax.swing.text.*;
 
 public class Main
 {
@@ -46,7 +45,7 @@ public class Main
 			{
 				GUI gui = new GUI();
 				gui.draw();
-				System.out.println("Test");
+			
 			}
 		});
 

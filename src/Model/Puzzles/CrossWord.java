@@ -1,7 +1,6 @@
 package Model.Puzzles;
 
 import Model.Puzzles.Parts.*;
-import java.lang.reflect.Array;
 import java.awt.Dimension;
 import java.util.*;
 

@@ -1,28 +1,43 @@
 package View;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.*;
+import View.Components.*;
 
-public class GUI extends JPanel
+public class GUI extends JFrame
 {
-	JFrame frame;
+	
 
 	public GUI()
 	{
-		frame = new JFrame("Puzzles");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500, 500);
-		frame.setLocationRelativeTo(null);
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		
+		mainPanel.setPreferredSize(new Dimension(1200,1200));	
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1200, 800);
+		setLocationRelativeTo(null);
+		
+		
+		PuzzleArea puzzleArea = new PuzzleArea();
+		ToolBar toolbar = new ToolBar();
+		WordListArea wordListArea = new WordListArea();
+		
+		mainPanel.add(toolbar,BorderLayout.WEST);
+		mainPanel.add(wordListArea,BorderLayout.EAST);
+		mainPanel.add(puzzleArea);
+		
+		add(mainPanel);
+
 
 	}
 
-	public JFrame getFrame()
-	{
-		return frame;
-	}
+	
 
 	public void draw()
 	{
-		frame.setVisible(true);
+		setVisible(true);
 	}
 
 }
