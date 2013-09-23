@@ -1,5 +1,6 @@
 package View.Components;
 
-public class PuzzleArea {
+public class PuzzleArea
+{
 
 }

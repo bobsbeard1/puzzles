@@ -1,5 +1,31 @@
 package Model.Puzzles;
 
-public class WordSearch {
+import java.awt.Dimension;
 
+import Model.Puzzles.Parts.WordLocation;
+
+public class WordSearch extends Puzzle
+{
+
+	@Override
+	public char charAt(Dimension dim)
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean addWord(String word, WordLocation location)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteWord(String word, WordLocation location)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }
