@@ -1,8 +1,11 @@
 package Control;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import Utility.FileManager;
 import View.GUI;
+import Model.WordList;
 import Model.Puzzles.*;
 import Model.Puzzles.Parts.WordLocation;
 
@@ -11,9 +14,14 @@ import javax.swing.*;
 public class Main
 {
 	//Currently acting as controller
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 		final GUI gui = new GUI();
+		
+		String path = "moby_list.txt";
+		WordList wordList = new WordList(FileManager.readFile(path));
+		
+		wordList.printList();
 		
 		
 		CrossWord word = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord);

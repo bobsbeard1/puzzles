@@ -22,7 +22,7 @@ public class PuzzleGenerator
 					cellArray[i][j] = new CrossWordCell(RandomHelper.getRandomChar());
 				}
 			}
-			/*
+			
 			cellArray[0][0].setChar('#');
 			cellArray[0][1].setChar('#');
 			cellArray[0][2].setChar('#');
@@ -30,7 +30,7 @@ public class PuzzleGenerator
 			cellArray[1][3].setChar('#');
 			cellArray[5][5].setChar('#');
 			cellArray[2][2].setChar('#');
-			*/
+			
 			return new CrossWord(cellArray);
 			
 		case WordSearch:

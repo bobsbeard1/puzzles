@@ -7,40 +7,52 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+public class WordList
+{
 
-public class WordList {
-
-	private static List<String> list = new ArrayList<String>();
+	private static ArrayList<String> list = new ArrayList<String>();
 
 	/**
 	 * Creates a WordList from the given file. Words must be on their own line.
 	 * 
 	 * @param fileName
 	 */
-	public WordList(String fileName) {
+	public WordList(String fileName)
+	{
 
-		try {
+		try
+		{
 			BufferedReader reader = new BufferedReader(new FileReader(fileName));
 			String next;
 
-			while ((next = reader.readLine()) != null) {
+			while ((next = reader.readLine()) != null)
+			{
 				list.add(next);
 			}
-			
+
 			reader.close();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e)
+		{
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			e.printStackTrace();
 		}
+	}
+	
+	public WordList(ArrayList<String> stringList)
+	{
+		list = stringList;
 	}
 
 	/**
 	 * Prints list of words
 	 */
-	public void printList() {
+	public void printList()
+	{
 
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < list.size(); i++)
+		{
 			System.out.println(list.get(i));
 		}
 	}
@@ -50,7 +62,8 @@ public class WordList {
 	 * 
 	 * @param word
 	 */
-	public void addWord(String word) {
+	public void addWord(String word)
+	{
 		list.add(word);
 		System.out.println(word + " added!");
 	}
@@ -60,11 +73,14 @@ public class WordList {
 	 * 
 	 * @param word
 	 */
-	public void deleteWord(String word) {
-		if (list.indexOf(word) != -1) {
+	public void deleteWord(String word)
+	{
+		if (list.indexOf(word) != -1)
+		{
 			list.remove(word);
 			System.out.println(word + " removed");
-		} else {
+		} else
+		{
 			System.out.print(word + " wasn't in the list!");
 		}
 	}
@@ -75,8 +91,10 @@ public class WordList {
 	 * @param word
 	 * @return
 	 */
-	public boolean hasWord(String word) {
-		if (list.indexOf(word) != -1) {
+	public boolean hasWord(String word)
+	{
+		if (list.indexOf(word) != -1)
+		{
 			System.out.println(word + " is in the list!");
 			return true;
 
