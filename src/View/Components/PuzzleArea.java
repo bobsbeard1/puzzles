@@ -2,21 +2,21 @@ package View.Components;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
 import Model.Puzzles.*;
-import Model.Puzzles.Puzzle;
-import Model.Puzzles.PuzzleType;
 import Model.Puzzles.Parts.CrossWordCell;
 
 public class PuzzleArea extends JPanel
 {
-	private static final int CELL_SIZE = 30;
+	private static final int CELL_SIZE = 40;
 	Puzzle activePuzzle;
-	
 
 	public PuzzleArea()
 	{
@@ -42,39 +42,105 @@ public class PuzzleArea extends JPanel
 
 	public void drawCrossWord(Graphics2D g2d)
 	{
-		CrossWordCell[][] array = ((CrossWord)activePuzzle).getCellArray();
-		
+		drawCrossWordCells(g2d);
+		drawCharacters(g2d);
+
+	}
+
+	public void drawCrossWordCells(Graphics2D g2d)
+	{
+		CrossWordCell[][] array = ((CrossWord) activePuzzle).getCellArray();
+
 		for (int i = 0; i < array.length; i++)
 		{
 			for (int j = 0; j < array[0].length; j++)
 			{
-				drawCrossWordCell((i *CELL_SIZE),(j * CELL_SIZE),array[i][j],g2d);
+				CrossWordCell cell = array[i][j];
+
+				if (cell.getChar() != CrossWordCell.EMPTY_CELL)
+				{
+					g2d.setColor(Color.white);
+
+				} else
+				{
+					g2d.setColor(Color.black);
+				}
+
+				g2d.fillRect((i * CELL_SIZE), (j * CELL_SIZE), CELL_SIZE,
+						CELL_SIZE);
+
+				// Draw Border
+				g2d.setColor(Color.black);
+				g2d.drawRect((i * CELL_SIZE), (j * CELL_SIZE), CELL_SIZE,
+						CELL_SIZE);
+
 			}
 		}
-		
-		
-	
+
 	}
 
-	public void drawCrossWordCell(int x, int y, CrossWordCell cell,
-			Graphics2D g2d)
+	public void drawCharacters(Graphics2D g2d)
 	{
-		if (cell.getChar() != CrossWordCell.EMPTY_CELL)
+		// Set up the graphics device for rendering text nicely.
+		RenderingHints hints = new RenderingHints(
+				RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		hints.put(RenderingHints.KEY_RENDERING,
+				RenderingHints.VALUE_RENDER_QUALITY);
+		g2d.setRenderingHints(hints);
+
+		Font font = new Font("URW Chancery L", Font.BOLD, 21);
+		g2d.setFont(font);
+
+		FontMetrics metrics = g2d.getFontMetrics(font);
+
+		CrossWordCell[][] array = ((CrossWord) activePuzzle).getCellArray();
+		for (int i = 0; i < array.length; i++)
 		{
-			g2d.setColor(Color.white);
-		} else
-		{
-			g2d.setColor(Color.black);
+			for (int j = 0; j < array[0].length; j++)
+			{
+				CrossWordCell cell = array[i][j];
+				if (cell.getChar() != CrossWordCell.EMPTY_CELL)
+				{
+					// This is all to center the character in the cell
+					int charWidth = metrics.charWidth(cell.getChar());
+					int charHeight = metrics.getHeight();
+					
+					String wides = "wm";
+					String smalls = "jlfi";
+					
+					int xOff;
+					
+					if (smalls.indexOf(cell.getChar()) != -1)
+					{
+						xOff = (i * CELL_SIZE) + charWidth + (60 / charWidth);
+					} else if (wides.indexOf(cell.getChar()) != -1)
+					{
+						xOff = (i * CELL_SIZE) + charWidth / 2;
+					}
+					else {
+						xOff = (i * CELL_SIZE) + charWidth + (20 / charWidth);
+					}
+
+					int yOff = (j * CELL_SIZE)
+							+ (metrics.getAscent() + (CELL_SIZE - (metrics
+									.getAscent() + metrics.getDescent())) / 2);
+
+					g2d.drawChars(new char[]
+					{ cell.getChar() }, 0, 1, xOff, yOff);
+
+				}
+
+			}
 		}
-		g2d.drawRect(x, y, CELL_SIZE, CELL_SIZE);
-		g2d.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+
 	}
 
 	public void drawWordSearch(Graphics2D g2d)
 	{
 
 	}
-	
+
 	public void setActivePuzzle(Puzzle puzzle)
 	{
 		activePuzzle = puzzle;
