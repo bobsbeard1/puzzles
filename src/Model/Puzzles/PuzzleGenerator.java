@@ -45,6 +45,8 @@ public class PuzzleGenerator
 				}
 			}
 			
+			wordSearch = new WordSearch (wordsearchArray);
+			
 			return wordSearch;
 		
 		}
