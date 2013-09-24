@@ -11,7 +11,7 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 import Model.Puzzles.*;
-import Model.Puzzles.Parts.CrossWordCell;
+import Model.Puzzles.Parts.*;
 
 public class PuzzleArea extends JPanel
 {
@@ -138,7 +138,39 @@ public class PuzzleArea extends JPanel
 
 	public void drawWordSearch(Graphics2D g2d)
 	{
+		drawWordSearchCells (g2d);
+	}
+	
+	public void drawWordSearchCells (Graphics2D g2d)
+	{
+		WordSearchCell[][] array = ((WordSearch) activePuzzle).getCellArray();
 
+		for (int i = 0; i < array.length; i++)
+		{
+			for (int j = 0; j < array[0].length; j++)
+			{
+				WordSearchCell cell = array[i][j];
+
+				if (cell.getChar() != WordSearchCell.EMPTY_CELL)
+				{
+					g2d.setColor(Color.white);
+
+				} else
+				{
+					g2d.setColor(Color.black);
+				}
+
+				g2d.fillRect((i * CELL_SIZE), (j * CELL_SIZE), CELL_SIZE,
+						CELL_SIZE);
+
+				// Draw Border
+				g2d.setColor(Color.black);
+				g2d.drawRect((i * CELL_SIZE), (j * CELL_SIZE), CELL_SIZE,
+						CELL_SIZE);
+
+			}
+		}
+		
 	}
 
 	public void setActivePuzzle(Puzzle puzzle)

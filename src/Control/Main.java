@@ -24,10 +24,12 @@ public class Main
 		System.out.println(wordList.getLength());
 		
 		
+		int size = 20;
 		
+		CrossWord word = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord, size);
+		CrossWord word2 = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord, size);
 		
-		CrossWord word = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord);
-		CrossWord word2 = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord);
+		WordSearch search = (WordSearch)PuzzleGenerator.generatePuzzle (PuzzleType.WordSearch, size);
 		
 		HashMap<String,WordLocation> map1 = new HashMap<String,WordLocation>();
 		HashMap<String,WordLocation> map2 = new HashMap<String,WordLocation>();
@@ -37,16 +39,14 @@ public class Main
 		map2.put("Three",new WordLocation(2,1));
 		
 		word.printCrossWord();
+		search.printWordSearch();
 		
 		word.setWordMap(map1);
 		
 		word2.setWordMap(map2);
 		
+		gui.getPuzzleArea().setActivePuzzle(search);
 		
-		
-		gui.getPuzzleArea().setActivePuzzle(word);
-		
-
 		SwingUtilities.invokeLater(new Runnable()
 		{
 			public void run()

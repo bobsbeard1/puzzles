@@ -12,7 +12,7 @@ public class CrossWord extends Puzzle
 		cellArray = puzzleArray;
 	}
 	
-	public HashMap<String,WordLocation>  getWordMap()
+	public HashMap<String,WordLocation> getWordMap()
 	{
 		return wordMap;
 	}
