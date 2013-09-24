@@ -17,7 +17,7 @@ public class Main
 	public static void main(String[] args) throws IOException
 	{
 		final GUI gui = new GUI();
-		
+		//54
 		String path = "moby_list.txt";
 		WordList wordList = new WordList(FileManager.getSubWordListFromFile(path,50));
 		wordList.printList();
