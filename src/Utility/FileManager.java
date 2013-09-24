@@ -10,10 +10,10 @@ public class FileManager
 {
 
 	/**
-	 * Reads a wordList from a text file
+	 * Reads a wordList from a text or csv file
 	 * 
 	 * @param path
-	 *            The path to the .txt file.
+	 *            The path to the .txt\csv file.
 	 * @return List of strings
 	 * @throws IOException
 	 *             File Not found
@@ -21,25 +21,52 @@ public class FileManager
 	public static ArrayList<String> getWordListFromFile(String path)
 			throws IOException
 	{
-		BufferedReader reader = new BufferedReader(new FileReader(path));
-
-		ArrayList<String> stringList = new ArrayList<String>();
-		String line;
-		while ((line = reader.readLine()) != null)
+		if(path.endsWith("txt"))
 		{
+			System.out.println("txt");
+			System.out.println("");
+			BufferedReader reader = new BufferedReader(new FileReader(path));
 
-			stringList.add(line);
+			ArrayList<String> stringList = new ArrayList<String>();
+			String line;
+			while ((line = reader.readLine()) != null)
+			{
+				stringList.add(line);
+			}
+			reader.close();
+			return stringList;
 		}
-
-		return stringList;
-
+		else if(path.endsWith("csv"))
+		{
+			System.out.println("csv");
+			System.out.println("");
+			 BufferedReader CSVFile = new BufferedReader(new FileReader(path));
+	
+			 String dataRow = CSVFile.readLine();
+			 ArrayList<String> stringList = new ArrayList<String>();
+			 while (dataRow != null)
+			 {
+				   String[] dataArray = dataRow.split(", ");
+				   for (String item:dataArray) 
+				   { 
+					   stringList.add(item);
+				   }
+				   dataRow = CSVFile.readLine();
+			 }
+			  
+			 CSVFile.close();
+			 return stringList;
+		}
+		else
+		{
+			System.out.println("File: '" + path + "' is not a .txt or .csv file!");
+			return null;
+		}
 	}
 
 	public static ArrayList<String> getSubWordListFromFile(String path, int size)
 			throws IOException
 	{
-		
-
 		ArrayList<String> stringList = new ArrayList<String>();
 		String line;
 
@@ -60,9 +87,8 @@ public class FileManager
 
 			}
 
-		
+			reader.close();
 		}
-
 		return stringList;
 
 	}
