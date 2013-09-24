@@ -7,14 +7,19 @@ import View.Components.*;
 
 public class GUI extends JFrame
 {
+
+	private static final long serialVersionUID = 1L;
 	PuzzleArea puzzleArea;
 	ToolBar toolbar;
 	WordListArea wordListArea;
 	
+	CrosswordTab crossTab;
+	WordSearchTab wsTab;
+	int height, width;
 	
 	public GUI()
 	{
-		JPanel mainPanel = new JPanel(new BorderLayout());
+		/*JPanel mainPanel = new JPanel(new BorderLayout());
 		
 		mainPanel.setPreferredSize(new Dimension(1200,1200));	
 		
@@ -31,9 +36,55 @@ public class GUI extends JFrame
 		mainPanel.add(wordListArea,BorderLayout.EAST);
 		mainPanel.add(puzzleArea);
 		
-		add(mainPanel);
+		add(mainPanel);*/
+		setTitle("WORD PUZZLES!");
+		setSize(1200,900);
+		height = getSize().height;
+		width = getSize().width;
+		wsTab = new WordSearchTab();
+		crossTab = new CrosswordTab();
+		
+		JTabbedPane tab = new JTabbedPane();
+		add(tab);
+		tab.addTab("Word Search", wsTab);
+		tab.addTab("Crossword",crossTab);
 
+		
 
+	}
+	
+	class WordSearchTab extends JPanel{
+
+		private static final long serialVersionUID = 1L;
+
+		public WordSearchTab(){
+			puzzleArea = new PuzzleArea();
+			wordListArea = new WordListArea(height);
+			toolbar = new ToolBar(height);
+			
+			add(toolbar, BorderLayout.WEST);
+			add(puzzleArea);
+			add(wordListArea,BorderLayout.EAST);
+			revalidate();
+			repaint();
+		}
+		
+	}
+	class CrosswordTab extends JPanel{
+
+		private static final long serialVersionUID = 1L;
+
+		public CrosswordTab(){		
+			puzzleArea = new PuzzleArea();
+			wordListArea = new WordListArea(height);
+			toolbar = new ToolBar(height);
+			
+			add(toolbar, BorderLayout.WEST);
+			add(puzzleArea);
+			add(wordListArea,BorderLayout.EAST);
+			revalidate();
+			repaint();
+		}
 	}
 	
 	public PuzzleArea getPuzzleArea()

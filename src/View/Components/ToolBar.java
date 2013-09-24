@@ -7,9 +7,9 @@ import javax.swing.JPanel;
 
 public class ToolBar extends JPanel
 {
-	public ToolBar()
+	public ToolBar(int height)
 	{
-		setPreferredSize(new Dimension(200,200));
+		setPreferredSize(new Dimension(200,height));
 		this.setBackground(Color.orange);
 	}
 }

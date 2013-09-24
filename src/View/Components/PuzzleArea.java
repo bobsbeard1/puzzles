@@ -20,7 +20,7 @@ public class PuzzleArea extends JPanel
 
 	public PuzzleArea()
 	{
-		setPreferredSize(new Dimension(100, 100));
+		setPreferredSize(new Dimension(CELL_SIZE * 20, CELL_SIZE * 20));
 		this.setBackground(Color.blue);
 	}
 
