@@ -7,6 +7,10 @@ import Model.Puzzles.Parts.*;
 public class WordSearch extends Puzzle
 {
 
+	public WordSearch (int size)
+	{
+		cellArray = new WordSearchCell[size][size];
+	}
 	public WordSearch (WordSearchCell[][] inputArray)
 	{
 		cellArray = inputArray;

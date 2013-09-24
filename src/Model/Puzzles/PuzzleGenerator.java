@@ -34,6 +34,7 @@ public class PuzzleGenerator
 			return new CrossWord(crosswordArray);
 			
 		case WordSearch:
+			WordSearch wordSearch = new WordSearch (size);
 			WordSearchCell[][] wordsearchArray = new WordSearchCell[size][size];
 			
 			for (int i = 0; i < wordsearchArray.length; i++)
@@ -44,7 +45,7 @@ public class PuzzleGenerator
 				}
 			}
 			
-			return new WordSearch(wordsearchArray);
+			return wordSearch;
 		
 		}
 		return null;
