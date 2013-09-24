@@ -18,13 +18,21 @@ public class Main
 	{
 		final GUI gui = new GUI();
 		
-		String path = "moby_list.txt";
-		WordList wordList = new WordList(FileManager.getSubWordListFromFile(path,50));
-		wordList.printList();
-		System.out.println(wordList.getLength());
-		
-		
-		
+		String path = "words.txt";
+		if(path.endsWith("txt"))
+		{
+			WordList wordList = new WordList(FileManager.getWordListFromFile(path));
+			//WordList wordList = new WordList(FileManager.getSubWordListFromFile(path,50));
+			wordList.printList();
+			System.out.println(wordList.getLength());
+		}
+		else
+		{
+			//WordList wordList = new WordList(FileManager.getSubWordListFromFile(path,50));
+			WordList wordList = new WordList(FileManager.getWordListFromFile(path));
+			wordList.printList();
+			System.out.println(wordList.getLength());
+		}
 		
 		CrossWord word = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord);
 		CrossWord word2 = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord);
