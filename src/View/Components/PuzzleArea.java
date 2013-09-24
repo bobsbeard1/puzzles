@@ -43,7 +43,7 @@ public class PuzzleArea extends JPanel
 	public void drawCrossWord(Graphics2D g2d)
 	{
 		drawCrossWordCells(g2d);
-		drawCharacters(g2d);
+		drawCrossWordCharacters(g2d);
 
 	}
 
@@ -79,7 +79,7 @@ public class PuzzleArea extends JPanel
 
 	}
 
-	public void drawCharacters(Graphics2D g2d)
+	public void drawCrossWordCharacters(Graphics2D g2d)
 	{
 		// Set up the graphics device for rendering text nicely.
 		RenderingHints hints = new RenderingHints(
@@ -139,6 +139,7 @@ public class PuzzleArea extends JPanel
 	public void drawWordSearch(Graphics2D g2d)
 	{
 		drawWordSearchCells (g2d);
+		drawWordSearchCharacters (g2d);
 	}
 	
 	public void drawWordSearchCells (Graphics2D g2d)
@@ -171,6 +172,63 @@ public class PuzzleArea extends JPanel
 			}
 		}
 		
+	}
+	
+	public void drawWordSearchCharacters(Graphics2D g2d)
+	{
+		// Set up the graphics device for rendering text nicely.
+		RenderingHints hints = new RenderingHints(
+				RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		hints.put(RenderingHints.KEY_RENDERING,
+				RenderingHints.VALUE_RENDER_QUALITY);
+		g2d.setRenderingHints(hints);
+
+		Font font = new Font("URW Chancery L", Font.BOLD, 21);
+		g2d.setFont(font);
+
+		FontMetrics metrics = g2d.getFontMetrics(font);
+
+		WordSearchCell[][] array = ((WordSearch) activePuzzle).getCellArray();
+		for (int i = 0; i < array.length; i++)
+		{
+			for (int j = 0; j < array[0].length; j++)
+			{
+				WordSearchCell cell = array[i][j];
+				if (cell.getChar() != WordSearchCell.EMPTY_CELL)
+				{
+					// This is all to center the character in the cell
+					int charWidth = metrics.charWidth(cell.getChar());
+					int charHeight = metrics.getHeight();
+					
+					String wides = "wm";
+					String smalls = "jlfi";
+					
+					int xOff;
+					
+					if (smalls.indexOf(cell.getChar()) != -1)
+					{
+						xOff = (i * CELL_SIZE) + charWidth + (60 / charWidth);
+					} else if (wides.indexOf(cell.getChar()) != -1)
+					{
+						xOff = (i * CELL_SIZE) + charWidth / 2;
+					}
+					else {
+						xOff = (i * CELL_SIZE) + charWidth + (20 / charWidth);
+					}
+
+					int yOff = (j * CELL_SIZE)
+							+ (metrics.getAscent() + (CELL_SIZE - (metrics
+									.getAscent() + metrics.getDescent())) / 2);
+
+					g2d.drawChars(new char[]
+					{ cell.getChar() }, 0, 1, xOff, yOff);
+
+				}
+
+			}
+		}
+
 	}
 
 	public void setActivePuzzle(Puzzle puzzle)
