@@ -38,7 +38,7 @@ public class GUI extends JFrame
 		
 		add(mainPanel);*/
 		setTitle("WORD PUZZLES!");
-		setSize(1200,900);
+		setSize(1250,900);
 		height = getSize().height;
 		width = getSize().width;
 		wsTab = new WordSearchTab();
