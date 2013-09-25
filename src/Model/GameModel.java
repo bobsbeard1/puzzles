@@ -10,36 +10,39 @@ import Model.Puzzles.WordSearch;
 import Model.Puzzles.Parts.WordLocation;
 import Utility.FileManager;
 
-public class GameModel 
+/**
+ * Class to represent the puzzles and word list. 
+ * @author tom
+ *
+ */
+public class GameModel
 {
 	WordList wordList;
 	String path;
 	CrossWord crossWord;
 	WordSearch wordSearch;
 	int size;
-	
-	
+
 	public GameModel() throws IOException
 	{
 		size = 20;
-		crossWord = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord, size);
-		wordSearch = (WordSearch)PuzzleGenerator.generatePuzzle (PuzzleType.WordSearch, size);
+
 		path = "moby_list.txt";
 		wordList = new WordList(FileManager.getSubWordListFromFile(path, 100));
+		crossWord = (CrossWord) PuzzleGenerator.generatePuzzle(
+				PuzzleType.CrossWord, size, wordList);
+		wordSearch = (WordSearch) PuzzleGenerator.generatePuzzle(
+				PuzzleType.WordSearch, size, wordList);
 	}
-	
+
 	public WordSearch getWordSearch()
 	{
 		return wordSearch;
 	}
-	
+
 	public CrossWord getCrossWord()
 	{
 		return crossWord;
 	}
-	
-	
 
-	
-	
 }

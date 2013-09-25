@@ -1,5 +1,6 @@
 package Model.Puzzles;
 
+import Model.WordList;
 import Model.Puzzles.Parts.*;
 import Utility.RandomHelper;
 
@@ -7,12 +8,12 @@ import Utility.RandomHelper;
 
 public class PuzzleGenerator 
 {
-	public static Puzzle generatePuzzle(PuzzleType type, int size)
+	public static Puzzle generatePuzzle(PuzzleType type, int size, WordList wordList)
 	{
 		switch (type)
 		{
 		case CrossWord:
-			return generateCrossWord(size);
+			return generateCrossWord(size, wordList);
 		case WordSearch:
 			return generateWordSearch(size);
 		}
@@ -37,7 +38,7 @@ public class PuzzleGenerator
 		
 		return wordSearch;
 	}
-	private static CrossWord generateCrossWord(int size)
+	private static CrossWord generateCrossWord(int size, WordList list)
 	{
 
 		CrossWordCell[][] crosswordArray = new CrossWordCell[size][size];
