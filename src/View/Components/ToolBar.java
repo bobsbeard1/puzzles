@@ -13,8 +13,6 @@ public class ToolBar extends JPanel
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	//dfd
 	JButton generateButton;
 	JButton rearrangeButton;
 	JButton saveButton;
