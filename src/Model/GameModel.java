@@ -24,21 +24,8 @@ public class GameModel
 		size = 20;
 		crossWord = (CrossWord)PuzzleGenerator.generatePuzzle(PuzzleType.CrossWord, size);
 		wordSearch = (WordSearch)PuzzleGenerator.generatePuzzle (PuzzleType.WordSearch, size);
-		path = "words.txt";
-		if(path.endsWith("txt"))
-		{
-			WordList wordList = new WordList(FileManager.getWordListFromFile(path));
-			//WordList wordList = new WordList(FileManager.getSubWordListFromFile(path,50));
-			wordList.printList();
-			System.out.println(wordList.getLength());
-		}
-		else
-		{
-			//WordList wordList = new WordList(FileManager.getSubWordListFromFile(path,50));
-			WordList wordList = new WordList(FileManager.getWordListFromFile(path));
-			wordList.printList();
-			System.out.println(wordList.getLength());
-		}
+		path = "moby_list.txt";
+		wordList = new WordList(FileManager.getSubWordListFromFile(path, 100));
 	}
 	
 	public WordSearch getWordSearch()
