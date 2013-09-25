@@ -2,6 +2,8 @@ package Model.Puzzles.Parts;
 
 import java.util.Vector;
 
+import Utility.Vector2;
+
 /**
  * A class for representing locations of words in a puzzle
  * 
@@ -12,27 +14,27 @@ import java.util.Vector;
  */
 public class WordLocation<T>
 {
-	Vector<T> begining;
-	Vector<T> end;
-
+	Vector2 beg;
+	Vector2 end;
+	
 	public WordLocation(int xBeg, int yBeg, int xEnd, int yEnd)
 	{
-		begining = new Vector<T>(xBeg, yBeg);
-		end = new Vector<T>(xEnd, yEnd);
+		beg = new Vector2(xBeg,yBeg);
+		end = new Vector2(xEnd,yEnd);
 	}
 
-	public WordLocation(Vector<T> beginingOfWord, Vector<T> endOfWord)
+	public WordLocation(Vector2 beginingOfWord, Vector2 endOfWord)
 	{
-		begining = beginingOfWord;
+		beg = beginingOfWord;
 		end = endOfWord;
 	}
 
-	public Vector<T> getBegining()
+	public Vector2 getBegining()
 	{
-		return begining;
+		return beg;
 	}
 
-	public Vector<T> getEnd()
+	public Vector2 getEnd()
 	{
 		return end;
 	}
