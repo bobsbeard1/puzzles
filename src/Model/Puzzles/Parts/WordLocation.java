@@ -12,7 +12,7 @@ import Utility.Vector2;
  * @param <T>
  *            T is type integer
  */
-public class WordLocation<T>
+public class WordLocation
 {
 	Vector2 beg;
 	Vector2 end;

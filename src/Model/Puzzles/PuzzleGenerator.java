@@ -126,7 +126,9 @@ public class PuzzleGenerator
 		WordLocation location;
 		if (wordMap.isEmpty())
 		{
-			location = new WordLocation(0, 0, length - 1, 0);
+			//Test down/across
+			location = new WordLocation(0, 0, 0,length);
+			//location = new WordLocation(0, 0,length,0);
 		} else
 		{
 			location = findWordLocation(word, wordMap);
@@ -173,6 +175,16 @@ public class PuzzleGenerator
 	private static boolean placeCrossWordWordDown(String word,
 			WordLocation location,CrossWordCell[][] array)
 	{
+		int begining = location.getBegining().getY();
+		int end = location.getEnd().getY();
+		int col= location.getBegining().getX();
+		
+		int charIndex = 0;
+		for (int i = begining; i < end; i++)
+		{
+			array[col][i].setChar(word.charAt(charIndex));
+			charIndex++;
+		}
 		return true;
 	}
 }
