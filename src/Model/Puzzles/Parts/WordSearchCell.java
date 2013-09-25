@@ -22,5 +22,12 @@ public class WordSearchCell extends PuzzleCell
 		charValue = value;
 	}
 	
+	@Override 
+	public boolean isPartOfWord()
+	{
+		//Not implemented
+		return true;
+	}
+	
 	
 }

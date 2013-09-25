@@ -89,6 +89,11 @@ public class WordList
 			System.out.print(word + " wasn't in the list!");
 		}
 	}
+	
+	public ArrayList<String> getList()
+	{
+		return list;
+	}
 
 	/**
 	 * Returns whether the given word is in the list

@@ -12,6 +12,6 @@ public abstract class PuzzleCell
 	public abstract char getChar();
 	
 	public abstract void setChar(char value);
-	
+	public abstract boolean isPartOfWord();
 
 }
