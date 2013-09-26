@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,12 +42,37 @@ public class WordList implements Iterable<String>
 			e.printStackTrace();
 		}
 	}
-	
+
 	public WordList(ArrayList<String> stringList)
 	{
 		list = stringList;
 	}
 	
+	public void sortByLength()
+	{
+		Collections.sort(list, new lengthComparator());
+	}
+
+	class lengthComparator implements Comparator<String>
+	{
+
+		@Override
+		public int compare(String arg0, String arg1)
+		{
+			if (arg0.length() > arg1.length())
+			{
+				return -1;
+			} else if (arg0.length() < arg1.length())
+			{
+				return 1;
+			} else
+			{
+				return 0;
+			}
+			
+		}
+
+	}
 
 	/**
 	 * Prints list of words
@@ -58,7 +85,7 @@ public class WordList implements Iterable<String>
 			System.out.println(list.get(i));
 		}
 	}
-	
+
 	public int getLength()
 	{
 		return list.size();
@@ -91,11 +118,12 @@ public class WordList implements Iterable<String>
 			System.out.print(word + " wasn't in the list!");
 		}
 	}
+
 	public String getWordAt(int index)
 	{
 		return list.get(index);
 	}
-	
+
 	public boolean isEmpty()
 	{
 		return list.isEmpty();
@@ -122,7 +150,7 @@ public class WordList implements Iterable<String>
 	@Override
 	public Iterator<String> iterator()
 	{
-		
+
 		return list.iterator();
 	}
 }
