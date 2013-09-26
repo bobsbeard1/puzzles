@@ -14,28 +14,10 @@ import javax.swing.*;
 
 public class Main
 {
-	//Currently acting as controller
+	// Currently acting as controller
 	public static void main(String[] args) throws IOException
 	{
-		final GUI gui = new GUI();
-		
-		GameModel model = new GameModel();
-		
-		
-		
-		gui.getPuzzleArea().setActivePuzzle(model.getWordSearch());
-		
-
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				
-				gui.draw();
-			
-			}
-		});
-
+		Controller controller = new Controller();
+		controller.run();
 	}
-
 }

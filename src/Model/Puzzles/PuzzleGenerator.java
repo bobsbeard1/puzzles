@@ -24,7 +24,6 @@ public class PuzzleGenerator
 	/**
 	 * Main method for creating puzzles. Passes the data off to the respective
 	 * method based on the puzzle type.
-	 * 
 	 * @param type
 	 *            The type of puzzle to be created.
 	 * @param size
@@ -70,7 +69,7 @@ public class PuzzleGenerator
 		// add each word
 		for (int i = 0; i < words.getLength(); i++)
 		{
-			System.out.println("word at i = " + words.getWordAt(i) + " wordList Length = " + words.getLength());
+			//System.out.println("word at i = " + words.getWordAt(i) + " wordList Length = " + words.getLength());
 			wordSearchArray = addWord (words.getWordAt(i), wordSearchArray);
 			
 		}
@@ -101,12 +100,12 @@ public class PuzzleGenerator
 		{
 			for( int col = 0; col < size; col++)
 			{
-				System.out.println("row: " + row + "  col: " + col);
+				//System.out.println("row: " + row + "  col: " + col);
 				newPuzzle[row][col] = new WordSearchCell('#');
 				newPuzzle[row][col].setChar(originalPuzzle[row][col].getChar());
 			}
 		}
-		System.out.printf("new = " + newPuzzle + " orig = " + originalPuzzle);
+		//System.out.printf("new = " + newPuzzle + " orig = " + originalPuzzle);
 		// random orientation and direction
 			Random rand = new Random ();
 			
@@ -211,7 +210,7 @@ public class PuzzleGenerator
 						for (int j = index; j > 0; j--)
 						{
 
-							System.out.println("j = " + j + " i = " + index + " x = " + x + " y  = " + y);
+							//System.out.println("j = " + j + " i = " + index + " x = " + x + " y  = " + y);
 							// walk back through the word, depending on direction
 							switch (direction)
 							{

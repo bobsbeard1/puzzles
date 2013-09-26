@@ -27,12 +27,12 @@ public class GameModel
 	{
 		size = 20;
 		
-		//path = "words.txt";
+		path = "moby_list.txt";
 		//wordList = new WordList(FileManager.getWordListFromFile(path));
 		
-		path = "goodwords.txt";
-		//wordList = new WordList(FileManager.getSubWordListFromFile(path, 10));
-		wordList = new WordList(path);
+		//path = "goodwords.txt";
+		wordList = new WordList(FileManager.getSubWordListFromFile(path, 40));
+		//wordList = new WordList(path);
 		wordList.sortByLength();
 		
 		wordList.printList();
