@@ -269,6 +269,26 @@ public class PuzzleGenerator
 		int charIndex = 0;
 		int col = potLocation.getBegining().getX();
 
+		// Can't have words next to each other
+		try
+		{
+			if (potLocation.getEnd().getY() + 1 < cellArray.length)
+			{
+				if (cellArray[potLocation.getEnd().getX()][potLocation.getEnd()
+						.getY() + 1].isPartOfDownWord())
+				{
+					return false;
+				}
+			}
+			if (cellArray[potLocation.getBegining().getX()][potLocation
+					.getBegining().getY() - 1].isPartOfDownWord())
+			{
+				return false;
+			}
+		} catch (Exception e)
+		{
+		}
+
 		for (int i = potLocation.getBegining().getY(); i < potLocation.getEnd()
 				.getY(); i++)
 		{
@@ -323,12 +343,12 @@ public class PuzzleGenerator
 		}
 		// Can't have words next to each other
 		if (cellArray[potLocation.getEnd().getX() + 1][potLocation.getEnd()
-				.getY()].isPartOfAcrossWord())
+				.getY()].isPartOfWord())
 		{
 			return false;
 		}
-		if (cellArray[potLocation.getEnd().getX() - 1][potLocation.getEnd()
-				.getY()].isPartOfAcrossWord())
+		if (cellArray[potLocation.getBegining().getX() - 1][potLocation
+				.getBegining().getY()].isPartOfWord())
 		{
 			return false;
 		}
@@ -387,8 +407,11 @@ public class PuzzleGenerator
 		System.out.println(word);
 		array[location.getBegining().getX()][location.getBegining().getY()]
 				.setInitialCharAcross(true);
-		array[location.getEnd().getX() - 1][location.getEnd().getY()]
-				.setFinalCharAcross(true);
+		if (location.getEnd().getX() - 1 > 0)
+		{
+			array[location.getEnd().getX() - 1][location.getEnd().getY()]
+					.setFinalCharAcross(true);
+		}
 
 		int charIndex = 0;
 		for (int i = begining; i < end; i++)

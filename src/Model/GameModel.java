@@ -31,7 +31,8 @@ public class GameModel
 		//wordList = new WordList(FileManager.getWordListFromFile(path));
 		
 		path = "moby_list.txt";
-		wordList = new WordList(FileManager.getSubWordListFromFile(path, 20));
+		wordList = new WordList(FileManager.getSubWordListFromFile(path, 4000));
+		wordList.sortByLength();
 		
 		wordList.printList();
 		crossWord = (CrossWord) PuzzleGenerator.generatePuzzle(
