@@ -34,7 +34,7 @@ public class GameModel
 		wordList = new WordList(FileManager.getSubWordListFromFile(path, 4000));
 		wordList.sortByLength();
 		
-		wordList.printList();
+		//wordList.printList();
 		crossWord = (CrossWord) PuzzleGenerator.generatePuzzle(
 				PuzzleType.CrossWord, size, wordList);
 		wordSearch = (WordSearch) PuzzleGenerator.generatePuzzle(

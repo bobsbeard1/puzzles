@@ -114,11 +114,15 @@ public class PuzzleGenerator
 	{
 		HashMap<String, WordLocation> wordMap = new HashMap<String, WordLocation>();
 		// placeCrossWordWord(list.getWordAt(0), wordMap, array);
-
+		int count = 0;
 		for (String word : list)
 		{
-			placeCrossWordWord(word, wordMap, array);
+			if(placeCrossWordWord(word, wordMap, array))
+			{
+				count++;
+			}
 		}
+		//System.out.println(count);
 
 	}
 
@@ -206,14 +210,7 @@ public class PuzzleGenerator
 							 * 1 < cellArray.length) {
 							 * System.out.println("Test");
 							 */
-							potLocation = new WordLocation(
-									new Vector2(j - i, k), new Vector2((j - i)
-											+ word.length(), k));
-
-							if (canPlaceAcross(cellArray, word, potLocation))
-							{
-								return potLocation;
-							}
+							
 						} catch (Exception e)
 						{
 						}
@@ -334,6 +331,13 @@ public class PuzzleGenerator
 			String word, WordLocation potLocation)
 	{
 		// return false;
+		if(word.length() >= cellArray.length)
+		{
+			return false;
+		}
+		if(potLocation.getBegining().getX() < 0 || potLocation.getEnd().getX() > cellArray.length ||
+				potLocation.getBegining().getY() < 0 || potLocation.getEnd().getY() > cellArray.length)
+		{return false;}
 
 		// Can't place 2 Across words sharing the last/initial letter
 		if (cellArray[potLocation.getBegining().getX()][potLocation
@@ -404,11 +408,12 @@ public class PuzzleGenerator
 		int end = location.getEnd().getX();
 		int row = location.getBegining().getY();
 
-		System.out.println(word);
+		
 		array[location.getBegining().getX()][location.getBegining().getY()]
 				.setInitialCharAcross(true);
 		if (location.getEnd().getX() - 1 > 0)
 		{
+
 			array[location.getEnd().getX() - 1][location.getEnd().getY()]
 					.setFinalCharAcross(true);
 		}
@@ -420,9 +425,9 @@ public class PuzzleGenerator
 			array[i][row].setPartOfAcrossWord(true);
 			charIndex++;
 		}
-		System.out.println();
-		System.out.printf("%s has been placed at X: %d Y:%d", word, location
-				.getBegining().getX(), location.getBegining().getY());
+		//System.out.println();
+		//System.out.printf("%s has been placed at X: %d Y:%d", word, location
+				//.getBegining().getX(), location.getBegining().getY());
 		return true;
 	}
 
@@ -445,9 +450,9 @@ public class PuzzleGenerator
 			array[col][i].setPartOfDownWord(true);
 			charIndex++;
 		}
-		System.out.println();
-		System.out.printf("%s has been placed at X: %d Y:%d", word, location
-				.getBegining().getX(), location.getBegining().getY());
+		//.out.println();
+		//System.out.printf("%s has been placed at X: %d Y:%d", word, location
+				//.getBegining().getX(), location.getBegining().getY());
 		return true;
 	}
 }
