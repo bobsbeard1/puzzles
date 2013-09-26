@@ -5,9 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class WordList
+public class WordList implements Iterable<String>
 {
 
 	private static ArrayList<String> list = new ArrayList<String>();
@@ -44,6 +45,7 @@ public class WordList
 	{
 		list = stringList;
 	}
+	
 
 	/**
 	 * Prints list of words
@@ -89,10 +91,14 @@ public class WordList
 			System.out.print(word + " wasn't in the list!");
 		}
 	}
-	
-	public ArrayList<String> getList()
+	public String getWordAt(int index)
 	{
-		return list;
+		return list.get(index);
+	}
+	
+	public boolean isEmpty()
+	{
+		return list.isEmpty();
 	}
 
 	/**
@@ -111,5 +117,12 @@ public class WordList
 		}
 		System.out.println(word + " is not in the list!");
 		return false;
+	}
+
+	@Override
+	public Iterator<String> iterator()
+	{
+		
+		return list.iterator();
 	}
 }

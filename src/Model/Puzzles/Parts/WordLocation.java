@@ -38,4 +38,10 @@ public class WordLocation
 	{
 		return end;
 	}
+	
+	public void printLocation()
+	{
+		System.out.printf("Begining: X:%d Y:%d ",beg.getX(),beg.getY());
+		System.out.printf("End: X:%d Y:%d",end.getX(),end.getY());
+	}
 }

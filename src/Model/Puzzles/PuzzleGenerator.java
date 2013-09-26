@@ -1,12 +1,15 @@
 package Model.Puzzles;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 
 import Model.WordList;
 import Model.Puzzles.Parts.*;
 import Utility.RandomHelper;
+import Utility.Vector2;
 
 /**
  * Class for generating puzzles based on the puzzle type. Currently only
@@ -89,7 +92,8 @@ public class PuzzleGenerator
 				crosswordArray[i][j] = new CrossWordCell();
 			}
 		}
-
+		placeCrossWordWordDown("blob", new WordLocation(2, 0, 2, 4),
+				crosswordArray);
 		fillCrossWord(crosswordArray, list);
 
 		for (int i = 0; i < crosswordArray.length; i++)
@@ -110,11 +114,11 @@ public class PuzzleGenerator
 	private static void fillCrossWord(CrossWordCell[][] array, WordList list)
 	{
 		HashMap<String, WordLocation> wordMap = new HashMap<String, WordLocation>();
-		placeCrossWordWord(list.getList().get(0),wordMap,array);
-		
-		for (int i = 0; i < list.getLength(); i++)
-		{
+		// placeCrossWordWord(list.getWordAt(0), wordMap, array);
 
+		for (String word : list)
+		{
+			placeCrossWordWord(word, wordMap, array);
 		}
 
 	}
@@ -126,59 +130,221 @@ public class PuzzleGenerator
 		WordLocation location;
 		if (wordMap.isEmpty())
 		{
-			//Test down/across
-			location = new WordLocation(0, 0, 0,length);
-			//location = new WordLocation(0, 0,length,0);
+			// Test down/across
+			location = new WordLocation(19, 0, 19, length);
+			// location = new WordLocation(0, 0,length,0);
 		} else
 		{
-			location = findWordLocation(word, wordMap);
+			location = findWordLocation(word, array);
 		}
-		
-		if (location.getBegining().getX() != location.getEnd()
-				.getX())
+
+		if (location != null)
 		{
-			wordMap.put(word, location);
-			return placeCrossWordWordAcross(word, location, array);
-			
+			if (location.getBegining().getX() != location.getEnd().getX())
+			{
+				wordMap.put(word, location);
+				return placeCrossWordWordAcross(word, location, array);
+
+			} else
+			{
+				wordMap.put(word, location);
+				return placeCrossWordWordDown(word, location, array);
+			}
 		} else
 		{
-			wordMap.put(word, location);
-			return placeCrossWordWordDown(word, location, array);
+			return false;
 		}
 
 	}
 
 	private static WordLocation findWordLocation(String word,
-			HashMap<String, WordLocation> wordMap)
+			CrossWordCell[][] cellArray)
 	{
-		// TODO Auto-generated method stub
+
+		HashMap<String, WordLocation> potentialLocations = new HashMap<String, WordLocation>();
+
+		for (int i = 0; i < word.length(); i++)
+		{
+
+			for (int j = 0; j < cellArray.length; j++)
+			{
+				for (int k = 0; k < cellArray[0].length; k++)
+				{
+
+					if (word.charAt(i) == cellArray[j][k].getChar())
+					{
+						System.out.println(word.charAt(i) + " "
+								+ cellArray[j][k].getChar());
+						WordLocation potLocation;
+						// Make sure across/down check is in bounds
+						if (j + 1 < cellArray[0].length
+								|| (j + 1 == cellArray[0].length && i == word
+										.length() - 1))
+						{
+
+							// Check if placing across or down. If this cell is
+							// part of a word it can only be down.
+							if ((!(j + 1 == cellArray[0].length && i == word
+									.length() - 1))
+									&& cellArray[j + 1][k].isPartOfWord() == true)
+							{
+								if (k - i >= 0
+										&& k - i + word.length() - 1 < cellArray.length)
+								{
+									potLocation = new WordLocation(new Vector2(
+											j , k-i), new Vector2(j
+											, (k-i)+ word.length()));
+									if (canPlaceDown(cellArray, word,
+											potLocation))
+									{
+										return potLocation;
+									}
+								}
+
+							}
+
+							// Across
+							else
+							{
+								if (j - i >= 0
+										&& j - i + word.length() - 1 < cellArray.length)
+								{
+									System.out.println("Test");
+									potLocation = new WordLocation(new Vector2(
+											j - i, k), new Vector2((j - i)
+											+ word.length(), k));
+
+									if (canPlaceAcross(cellArray, word,
+											potLocation))
+									{
+										potLocation.printLocation();
+										return potLocation;
+									}
+								} else
+								{
+									System.out.println("fail");
+								}
+
+							}
+						}
+
+						// potentialLocations.put(potLocation, word);
+					}
+				}
+			}
+		}
+
 		return null;
 	}
 
+	private static boolean canPlaceDown(CrossWordCell[][] cellArray,
+			String word, WordLocation potLocation)
+	{
+		// Can't place 2 Down word back to back
+				if (cellArray[potLocation.getBegining().getX()][potLocation
+						.getBegining().getY()].isFinalCharDown())
+				{
+					return false;
+				}
+				int charIndex = 0;
+				int col = potLocation.getBegining().getX();
+
+				for (int i = potLocation.getBegining().getY(); i < potLocation.getEnd()
+						.getY(); i++)
+				{
+					if (cellArray[col][i].isInitialCharDown())
+					{
+						return false;
+					}
+				}
+
+				for (int i = potLocation.getBegining().getY(); i < potLocation.getEnd()
+						.getY(); i++)
+				{
+					if (cellArray[col][i].isPartOfWord()
+							&& (cellArray[col][i].getChar() != word.charAt(charIndex)))
+					{
+
+						return false;
+					}
+					charIndex++;
+				}
+				return true;
+	
+	}
+
+	private static boolean canPlaceAcross(CrossWordCell[][] cellArray,
+			String word, WordLocation potLocation)
+	{
+		// Can't place 2 Across word back to back
+		if (cellArray[potLocation.getBegining().getX()][potLocation
+				.getBegining().getY()].isFinalCharAcross())
+		{
+			return false;
+		}
+		int charIndex = 0;
+		int row = potLocation.getBegining().getY();
+
+		for (int i = potLocation.getBegining().getX(); i < potLocation.getEnd()
+				.getX(); i++)
+		{
+			if (cellArray[i][row].isInitialCharAcross())
+			{
+				return false;
+			}
+		}
+
+		for (int i = potLocation.getBegining().getX(); i < potLocation.getEnd()
+				.getX(); i++)
+		{
+			if (cellArray[i][row].isPartOfWord()
+					&& (cellArray[i][row].getChar() != word.charAt(charIndex)))
+			{
+
+				return false;
+			}
+			charIndex++;
+		}
+		return true;
+	}
+
 	private static boolean placeCrossWordWordAcross(String word,
-			WordLocation location,CrossWordCell[][] array)
+			WordLocation location, CrossWordCell[][] array)
 	{
 		int begining = location.getBegining().getX();
 		int end = location.getEnd().getX();
 		int row = location.getBegining().getY();
-		
+
+		System.out.println(word);
+		array[location.getBegining().getX()][location.getBegining().getY()]
+				.setInitialCharAcross(true);
+		array[location.getEnd().getX() - 1][location.getEnd().getY()]
+				.setFinalCharAcross(true);
+
 		int charIndex = 0;
 		for (int i = begining; i < end; i++)
 		{
 			array[i][row].setChar(word.charAt(charIndex));
 			charIndex++;
 		}
-		
+		System.out.println();
+		System.out.printf("%s has been placed at X: %d Y:%d", word, location
+				.getBegining().getX(), location.getBegining().getY());
 		return true;
 	}
 
 	private static boolean placeCrossWordWordDown(String word,
-			WordLocation location,CrossWordCell[][] array)
+			WordLocation location, CrossWordCell[][] array)
 	{
 		int begining = location.getBegining().getY();
 		int end = location.getEnd().getY();
-		int col= location.getBegining().getX();
+		int col = location.getBegining().getX();
 		
+		array[location.getBegining().getX()][location.getBegining().getY()]
+				.setInitialCharDown(true);
+		array[location.getEnd().getX() - 1][location.getEnd().getY()-1]
+				.setFinalCharDown(true);
+
 		int charIndex = 0;
 		for (int i = begining; i < end; i++)
 		{

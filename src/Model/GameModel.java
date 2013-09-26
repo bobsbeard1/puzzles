@@ -26,9 +26,14 @@ public class GameModel
 	public GameModel() throws IOException
 	{
 		size = 20;
-
+		
+		path = "words.txt";
+		wordList = new WordList(FileManager.getWordListFromFile(path));
+		/*
 		path = "moby_list.txt";
-		wordList = new WordList(FileManager.getSubWordListFromFile(path, 100));
+		wordList = new WordList(FileManager.getSubWordListFromFile(path, 20));
+		*/
+		wordList.printList();
 		crossWord = (CrossWord) PuzzleGenerator.generatePuzzle(
 				PuzzleType.CrossWord, size, wordList);
 		wordSearch = (WordSearch) PuzzleGenerator.generatePuzzle(
