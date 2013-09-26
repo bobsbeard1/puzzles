@@ -6,7 +6,9 @@ public class CrossWordCell extends PuzzleCell
 {
 	public static final char EMPTY_CELL = '#';
 	private char charValue;
-	private boolean partOfWord;
+	private boolean isPartOfDownWord = false;
+	private boolean isPartOfAcrossWord = false;
+	private boolean isPartOfWord;
 	private int number;
 	private boolean isFinalCharAcross = false;
 	private boolean isInitialCharAcross = false;
@@ -16,13 +18,13 @@ public class CrossWordCell extends PuzzleCell
 	public CrossWordCell(char value )
 	{
 		charValue = value; 
-		partOfWord = true;
+		isPartOfWord = true;
 		
 	}
 	
 	public CrossWordCell()
 	{
-		partOfWord = false;
+		isPartOfWord = false;
 	}
 	@Override
 	public char getChar()
@@ -34,7 +36,7 @@ public class CrossWordCell extends PuzzleCell
 	public void setChar(char value)
 	{
 		charValue = value;
-		partOfWord = true;
+		isPartOfWord = true;
 	}
 	public void setInitialCharDown(boolean value)
 	{
@@ -79,7 +81,25 @@ public class CrossWordCell extends PuzzleCell
 	@Override
 	public boolean isPartOfWord()
 	{
-		return partOfWord;
+		return isPartOfWord;
+	}
+	
+	public boolean isPartOfAcrossWord()
+	{
+		return isPartOfAcrossWord;
+	}
+	public boolean isPartOfDownWord()
+	{
+		return isPartOfDownWord;
+	}
+	
+	public void setPartOfAcrossWord(boolean value)
+	{
+		isPartOfAcrossWord = value;
+	}
+	public void setPartOfDownWord(boolean value)
+	{
+		isPartOfDownWord = value;
 	}
 	
 	public void setNumber(int num)
