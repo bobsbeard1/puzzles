@@ -15,8 +15,9 @@ public class Controller
 
 	public Controller() throws IOException
 	{
-		gui = new GUI(this);
 		model = new GameModel();
+		gui = new GUI(this);
+	
 	}
 	
 	public void run()

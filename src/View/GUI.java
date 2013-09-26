@@ -14,6 +14,7 @@ public class GUI extends JFrame
 
 	private static final long serialVersionUID = 1L;
 	PuzzleArea puzzleArea;
+	PuzzleArea puzzleArea2;
 	ToolBar toolbar;
 	WordListArea wordListArea;
 	Controller controller;
@@ -24,6 +25,8 @@ public class GUI extends JFrame
 
 	public GUI(Controller control)
 	{
+		puzzleArea = new PuzzleArea();
+		puzzleArea2 = new PuzzleArea();
 		controller = control;
 		setTitle("WORD PUZZLES!");
 		setSize(1250, 900);
@@ -39,6 +42,7 @@ public class GUI extends JFrame
 		tab.addTab("Crossword", crossTab);
 		
 		tab.addChangeListener(new tabChangeListener());
+		puzzleArea2.setActivePuzzle(controller.getModel().getWordSearch());
 
 	}
 
@@ -57,7 +61,7 @@ public class GUI extends JFrame
 
 			else
 			{
-				puzzleArea.setActivePuzzle(controller.getModel()
+				puzzleArea2.setActivePuzzle(controller.getModel()
 						.getWordSearch());
 
 			}
@@ -74,12 +78,12 @@ public class GUI extends JFrame
 		
 		public WordSearchTab()
 		{
-			 puzzleArea = new PuzzleArea();
+
 			wordListArea = new WordListArea(height);
 			toolbar = new ToolBar(height);
 
 			add(toolbar, BorderLayout.WEST);
-			add(puzzleArea);
+			add(puzzleArea2,BorderLayout.CENTER);
 			add(wordListArea, BorderLayout.EAST);
 			revalidate();
 			repaint();
@@ -94,7 +98,7 @@ public class GUI extends JFrame
 
 		public CrosswordTab()
 		{
-			puzzleArea = new PuzzleArea();
+		
 			wordListArea = new WordListArea(height);
 			toolbar = new ToolBar(height);
 
@@ -113,6 +117,7 @@ public class GUI extends JFrame
 
 	public void draw()
 	{
+		
 		setVisible(true);
 	}
 
