@@ -70,9 +70,12 @@ public class PuzzleGenerator
 		// add each word
 		for (int i = 0; i < words.getLength(); i++)
 		{
+			System.out.println("word at i = " + words.getWordAt(i) + " wordList Length = " + words.getLength());
 			wordSearchArray = addWord (words.getWordAt(i), wordSearchArray);
 			
 		}
+		
+		wordSearchArray = addRandomChars (wordSearchArray);
 		
 		WordSearch wordSearch = new WordSearch (wordSearchArray);
 
@@ -88,21 +91,34 @@ public class PuzzleGenerator
 	 */
 	private static WordSearchCell[][] addWord (String word, WordSearchCell[][] originalPuzzle)
 	{
-		// copy puzzle to newPuzzle
-		WordSearchCell[][] newPuzzle = originalPuzzle;
+		// size int
+		int size = originalPuzzle.length;
 		
+		// copy puzzle to newPuzzle
+		WordSearchCell[][] newPuzzle = new WordSearchCell[size][size];
+		
+		for (int row = 0; row < size; row++)
+		{
+			for( int col = 0; col < size; col++)
+			{
+				System.out.println("row: " + row + "  col: " + col);
+				newPuzzle[row][col] = new WordSearchCell('#');
+				newPuzzle[row][col].setChar(originalPuzzle[row][col].getChar());
+			}
+		}
+		System.out.printf("new = " + newPuzzle + " orig = " + originalPuzzle);
 		// random orientation and direction
 			Random rand = new Random ();
 			
 			// orientation 0 -> forward
 			// orientation 1 -> backward
-			int orientation = rand.nextInt(2);
+			int orientation = rand.nextInt(100)%2;
 			
 			// direction 0 -> horizontal
 			// direction 1 -> vertical
 			// direction 2 -> diagonal up
 			// direction 3 -> diagonal down
-			int direction = rand.nextInt(4);
+			int direction = rand.nextInt(100)%3;
 			
 			// word is backwards, so flip
 			if (orientation == 1)
@@ -111,12 +127,9 @@ public class PuzzleGenerator
 			}
 			
 			// for loop to try first locations
-			for (int attempt = 0; attempt < newPuzzle.length*newPuzzle.length; attempt++)
+			for (int attempt = 0; attempt < size*size; attempt++)
 			{
 				boolean validLocation = false;
-				System.out.println("\ndir: " + direction + " | ori: " + orientation);
-				System.out.println("word length: " + word.length());
-				System.out.println("newPuzzle length: " + newPuzzle.length);
 				
 				int x,y;
 				do
@@ -124,13 +137,13 @@ public class PuzzleGenerator
 					// random first char location
 					x = rand.nextInt(newPuzzle.length);
 					y = rand.nextInt(newPuzzle.length);
-					
+					//System.out.println("x = " + x + " y = " + y + " x + word.length() = " + (x + word.length()));
 					// test boundaries
 					switch (direction)
 					{
 						case 0:
 						{
-							if (!(x + word.length() >= newPuzzle.length))
+							if (!(x + word.length() >= size))
 							{
 								validLocation = true;
 							}
@@ -138,21 +151,21 @@ public class PuzzleGenerator
 						}
 						case 1:
 						{
-							if (!(y + word.length() >= newPuzzle.length))
+							if (!(y + word.length() >= size))
 							{
 								validLocation = true;
 							}
 							break;
 						}
 						case 2:
-							if (!(x + word.length() >= newPuzzle.length) || !(y - word.length() < 0))
+							if (!(x + word.length() >= size) && !(y - word.length() < 0))
 							{
 								validLocation = true;
 							}
 							break;
 						case 3:
 						{
-							if (!(x + word.length() >= newPuzzle.length) || !(y + word.length() >= newPuzzle.length))
+							if (!(x + word.length() >= size) && !(y + word.length() >= size))
 							{
 								validLocation = true;
 							}
@@ -164,15 +177,14 @@ public class PuzzleGenerator
 				while (!validLocation);
 				
 				// try to fill word. if bad intersection, get out and try a new spot
-				int i;
-				for (i = 0; i < word.length (); i++)
+				int index;
+				for (index = 0; index < word.length (); index++)
 				{
-					System.out.println("x: " + x + " | y: " + y);
 					// valid cell for this char
-					if (newPuzzle[x][y].getChar() == '#' || newPuzzle[x][y].getChar() == word.charAt(i))
+					if (newPuzzle[x][y].getChar() == '#' || newPuzzle[x][y].getChar() == word.charAt(index))
 					{
 						// cell is valid, place char and increment cell
-						newPuzzle[x][y].setChar(word.charAt(i));
+						newPuzzle[x][y].setChar(word.charAt(index));
 						
 						switch (direction)
 						{
@@ -194,11 +206,12 @@ public class PuzzleGenerator
 					}
 					else
 					{
+						
 						// word placement is bad, clean out any changes
-						for (int j = i; j > 0; j--)
+						for (int j = index; j > 0; j--)
 						{
-							newPuzzle[x][y].setChar(originalPuzzle[x][y].getChar ());
-							
+
+							System.out.println("j = " + j + " i = " + index + " x = " + x + " y  = " + y);
 							// walk back through the word, depending on direction
 							switch (direction)
 							{
@@ -210,16 +223,14 @@ public class PuzzleGenerator
 									break;
 								case 2:
 									x--;
-									y--;
+									y++;
 									break;
 								case 3:
 									x--;
-									y++;
+									y--;
 									break;
 							}
-							
-							newPuzzle[x][y].setChar(originalPuzzle[x][y].getChar ()); 
-								 
+							newPuzzle[x][y].setChar(originalPuzzle[x][y].getChar ()); 								 
 						}
 						
 						// get out and try a new spot
@@ -229,8 +240,12 @@ public class PuzzleGenerator
 				} // end for
 				
 				// word successfully placed, return newPuzzle
-				if (i >= word.length ())
+				if (index >= word.length ())
+				{				
 					return newPuzzle;
+					
+				}
+					
 				
 				
 			} // end for
@@ -238,6 +253,25 @@ public class PuzzleGenerator
 			return originalPuzzle;
 			
 		
+	}
+	
+	
+	public static WordSearchCell[][] addRandomChars (WordSearchCell[][] puzzle)
+	{
+		int size = puzzle.length;
+		// fill with random chars
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				if (puzzle[i][j].getChar () == '#')
+				{
+					puzzle[i][j].setChar (RandomHelper.getRandomChar ());
+				}
+			}
+		}
+		
+		return puzzle;
 	}
 	
 	/**
