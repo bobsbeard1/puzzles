@@ -150,7 +150,6 @@ public class WordList implements Iterable<String>
 	@Override
 	public Iterator<String> iterator()
 	{
-
 		return list.iterator();
 	}
 }

@@ -23,7 +23,7 @@ public class Main
 		
 		
 		
-		gui.getPuzzleArea().setActivePuzzle(model.getCrossWord());
+		gui.getPuzzleArea().setActivePuzzle(model.getWordSearch());
 		
 
 		SwingUtilities.invokeLater(new Runnable()

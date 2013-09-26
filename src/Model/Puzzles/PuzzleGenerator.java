@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.Vector;
 
 import Model.WordList;
@@ -40,7 +41,7 @@ public class PuzzleGenerator
 		case CrossWord:
 			return generateCrossWord(size, wordList);
 		case WordSearch:
-			return generateWordSearch(size);
+			return generateWordSearch(size, wordList);
 		}
 		return null;
 
@@ -53,25 +54,211 @@ public class PuzzleGenerator
 	 *            The square size of the puzzle
 	 * @return
 	 */
-	private static WordSearch generateWordSearch(int size)
+	private static WordSearch generateWordSearch(int size, WordList words)
 	{
-
-		WordSearch wordSearch = new WordSearch(size);
-		WordSearchCell[][] wordsearchArray = new WordSearchCell[size][size];
-
-		for (int i = 0; i < wordsearchArray.length; i++)
+		WordSearchCell[][] wordSearchArray = new WordSearchCell[size][size];
+		
+		// initialize array to #s
+		for (int i = 0; i < wordSearchArray.length; i++)
 		{
-			for (int j = 0; j < wordsearchArray[0].length; j++)
+			for (int j = 0; j < wordSearchArray[0].length; j++)
 			{
-				wordsearchArray[i][j] = new WordSearchCell(
-						RandomHelper.getRandomChar());
+				wordSearchArray[i][j] = new WordSearchCell('#');
 			}
 		}
-
-		wordSearch = new WordSearch(wordsearchArray);
+		
+		// add each word
+		for (int i = 0; i < words.getLength(); i++)
+		{
+			wordSearchArray = addWord (words.getWordAt(i), wordSearchArray);
+			
+		}
+		
+		WordSearch wordSearch = new WordSearch (wordSearchArray);
 
 		return wordSearch;
 	}
+	
+	/**
+	 * Adds the given word to the word search
+	 * @param word
+	 * 			The word to be added
+	 * @param puzzle
+	 * 			The puzzle
+	 */
+	private static WordSearchCell[][] addWord (String word, WordSearchCell[][] originalPuzzle)
+	{
+		// copy puzzle to newPuzzle
+		WordSearchCell[][] newPuzzle = originalPuzzle;
+		
+		// random orientation and direction
+			Random rand = new Random ();
+			
+			// orientation 0 -> forward
+			// orientation 1 -> backward
+			int orientation = rand.nextInt(2);
+			
+			// direction 0 -> horizontal
+			// direction 1 -> vertical
+			// direction 2 -> diagonal up
+			// direction 3 -> diagonal down
+			int direction = rand.nextInt(4);
+			
+			// word is backwards, so flip
+			if (orientation == 1)
+			{
+				word = flipString (word);
+			}
+			
+			// for loop to try first locations
+			for (int attempt = 0; attempt < newPuzzle.length*newPuzzle.length; attempt++)
+			{
+				boolean validLocation = false;
+				System.out.println("\ndir: " + direction + " | ori: " + orientation);
+				System.out.println("word length: " + word.length());
+				System.out.println("newPuzzle length: " + newPuzzle.length);
+				
+				int x,y;
+				do
+				{
+					// random first char location
+					x = rand.nextInt(newPuzzle.length);
+					y = rand.nextInt(newPuzzle.length);
+					
+					// test boundaries
+					switch (direction)
+					{
+						case 0:
+						{
+							if (!(x + word.length() >= newPuzzle.length))
+							{
+								validLocation = true;
+							}
+							break;
+						}
+						case 1:
+						{
+							if (!(y + word.length() >= newPuzzle.length))
+							{
+								validLocation = true;
+							}
+							break;
+						}
+						case 2:
+							if (!(x + word.length() >= newPuzzle.length) || !(y - word.length() < 0))
+							{
+								validLocation = true;
+							}
+							break;
+						case 3:
+						{
+							if (!(x + word.length() >= newPuzzle.length) || !(y + word.length() >= newPuzzle.length))
+							{
+								validLocation = true;
+							}
+							break;
+						}
+							
+					}
+				}
+				while (!validLocation);
+				
+				// try to fill word. if bad intersection, get out and try a new spot
+				int i;
+				for (i = 0; i < word.length (); i++)
+				{
+					System.out.println("x: " + x + " | y: " + y);
+					// valid cell for this char
+					if (newPuzzle[x][y].getChar() == '#' || newPuzzle[x][y].getChar() == word.charAt(i))
+					{
+						// cell is valid, place char and increment cell
+						newPuzzle[x][y].setChar(word.charAt(i));
+						
+						switch (direction)
+						{
+							case 0:
+								x++;
+								break;
+							case 1:
+								y++;
+								break;
+							case 2:
+								x++;
+								y--;
+								break;
+							case 3:
+								x++;
+								y++;
+								break;
+						}
+					}
+					else
+					{
+						// word placement is bad, clean out any changes
+						for (int j = i; j > 0; j--)
+						{
+							newPuzzle[x][y].setChar(originalPuzzle[x][y].getChar ());
+							
+							// walk back through the word, depending on direction
+							switch (direction)
+							{
+								case 0:
+									x--;
+									break;
+								case 1:
+									y--;
+									break;
+								case 2:
+									x--;
+									y--;
+									break;
+								case 3:
+									x--;
+									y++;
+									break;
+							}
+							
+							newPuzzle[x][y].setChar(originalPuzzle[x][y].getChar ()); 
+								 
+						}
+						
+						// get out and try a new spot
+						break;
+					} // end else
+					
+				} // end for
+				
+				// word successfully placed, return newPuzzle
+				if (i >= word.length ())
+					return newPuzzle;
+				
+				
+			} // end for
+			
+			return originalPuzzle;
+			
+		
+	}
+	
+	/**
+	 * 
+	 * @param word
+	 * 			String to be reversed
+	 * @return
+	 */
+	private static String flipString (String word)
+	{
+		StringBuilder flippedString = new StringBuilder ();
+
+		for (int i = word.length () - 1; i >= 0; i--)
+		{
+			flippedString.append(word.charAt(i));
+		}
+		
+		return flippedString.toString();
+	}
+	
+	
 
 	/**
 	 * Generates a cross word puzzle.
