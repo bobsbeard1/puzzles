@@ -2,6 +2,9 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -22,9 +25,10 @@ public class GUI extends JFrame
 	CrosswordTab crossTab;
 	WordSearchTab wsTab;
 	int height, width;
-
+	
 	public GUI(Controller control)
 	{
+		
 		puzzleArea = new PuzzleArea();
 		puzzleArea2 = new PuzzleArea();
 		controller = control;
@@ -43,6 +47,7 @@ public class GUI extends JFrame
 		
 		tab.addChangeListener(new tabChangeListener());
 		puzzleArea2.setActivePuzzle(controller.getModel().getWordSearch());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
 
@@ -78,15 +83,14 @@ public class GUI extends JFrame
 		
 		public WordSearchTab()
 		{
-
-			wordListArea = new WordListArea(height);
-			toolbar = new ToolBar(height);
+			setLayout(new BorderLayout());
+			wordListArea = new WordListArea();
+			toolbar = new ToolBar();
 
 			add(toolbar, BorderLayout.WEST);
-			add(puzzleArea2,BorderLayout.CENTER);
+			add(puzzleArea2, BorderLayout.CENTER);
+
 			add(wordListArea, BorderLayout.EAST);
-			revalidate();
-			repaint();
 		}
 
 	}
@@ -98,15 +102,13 @@ public class GUI extends JFrame
 
 		public CrosswordTab()
 		{
-		
-			wordListArea = new WordListArea(height);
-			toolbar = new ToolBar(height);
+			setLayout(new BorderLayout());
+			wordListArea = new WordListArea();
+			toolbar = new ToolBar();
 
 			add(toolbar, BorderLayout.WEST);
-			add(puzzleArea);
+			add(puzzleArea, BorderLayout.CENTER);
 			add(wordListArea, BorderLayout.EAST);
-			revalidate();
-			repaint();
 		}
 	}
 

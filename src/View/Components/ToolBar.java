@@ -2,6 +2,9 @@ package View.Components;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,14 +23,16 @@ public class ToolBar extends JPanel
 	JButton loadButton;
 	
 	
-	public ToolBar(int height)
+	public ToolBar()
 	{
+		Dimension size = new Dimension();
+		size.width = 200;
 		generateButton = new JButton("Generate Puzzle");
 		rearrangeButton = new JButton("Rearrange");
 		saveButton = new JButton("Save Puzzle");
 		loadButton = new JButton("Load Puzzle");
 
-		setPreferredSize(new Dimension(200,height));
+		setPreferredSize(size);
 		this.setBackground(Color.orange);
 		
 		
@@ -69,10 +74,24 @@ public class ToolBar extends JPanel
 				
 			}
 		});
+		setLayout(new GridBagLayout());
+		GridBagConstraints constraint = new GridBagConstraints();
+		constraint.anchor = GridBagConstraints.FIRST_LINE_START;
+		constraint.insets = new Insets(1, 1, 5, 5);
 		
-		add(generateButton);
-		add(rearrangeButton);
-		add(saveButton);
-		add(loadButton);
+		constraint.weighty = .1;
+		constraint.gridx = 0;
+		constraint.gridy = 0;
+		add(generateButton, constraint);
+		constraint.gridx = 0;
+		constraint.gridy = 1;
+		add(rearrangeButton, constraint);
+		constraint.gridx = 0;
+		constraint.gridy = 2;
+		add(saveButton, constraint);
+		constraint.weighty = 10;
+		constraint.gridx = 0;
+		constraint.gridy = 3;
+		add(loadButton, constraint);
 	}
 }
