@@ -21,7 +21,7 @@ public class PuzzleArea extends JPanel
 	public PuzzleArea()
 	{
 		setPreferredSize(new Dimension(CELL_SIZE * 20, CELL_SIZE * 20));
-		this.setBackground(Color.blue);
+	//	this.setBackground(Color.blue);
 	}
 
 	public void drawPuzzle(Graphics g)
@@ -63,7 +63,7 @@ public class PuzzleArea extends JPanel
 
 				} else
 				{
-					g2d.setColor(Color.black);
+					g2d.setColor(Color.gray);
 				}
 
 				g2d.fillRect((i * CELL_SIZE), (j * CELL_SIZE), CELL_SIZE,

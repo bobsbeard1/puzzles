@@ -33,7 +33,7 @@ public class ToolBar extends JPanel
 		loadButton = new JButton("Load Puzzle");
 
 		setPreferredSize(size);
-		this.setBackground(Color.orange);
+	//	this.setBackground(Color.orange);
 		
 		
 		generateButton.addActionListener(new ActionListener() {
@@ -94,4 +94,7 @@ public class ToolBar extends JPanel
 		constraint.gridy = 3;
 		add(loadButton, constraint);
 	}
+	public void actionPerformed(ActionEvent arg0){
+	}
+	
 }
