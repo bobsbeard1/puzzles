@@ -28,7 +28,7 @@ public class GUI extends JFrame
 	CrosswordTab crossTab;
 	WordSearchTab wsTab;
 	int height, width;
-	boolean isSolved;
+	boolean showWords;
 	//dfdfd
 	
 	public GUI(Controller control)
@@ -56,6 +56,7 @@ public class GUI extends JFrame
 		tab.addChangeListener(new tabChangeListener());
 		puzzleArea2.setActivePuzzle(controller.getModel().getWordSearch());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		showWords = false;
 
 	}
 
@@ -148,14 +149,14 @@ public class GUI extends JFrame
 		}
 	}
 	
-	public boolean getIsSolved ()
+	public boolean getShowWords ()
 	{
-		return isSolved;
+		return showWords;
 	}
 	
-	public void setIsSolved (boolean value)
+	public void setShowWords (boolean value)
 	{
-		isSolved = value;
+		showWords = value;
 	}
 
 }

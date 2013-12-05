@@ -122,13 +122,16 @@ public class ToolBar extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				if (control.getGUI().getIsSolved())
+				System.out.println (control.getGUI().getShowWords());
+				if (control.getGUI().getShowWords())
 				{
-					control.getGUI().setIsSolved(false);
+					showWords.setText("ShowWords");
+					control.getGUI().setShowWords(false);
 				}
 				else
 				{
-					control.getGUI().setIsSolved(true);
+					showWords.setText("HideWords");
+					control.getGUI().setShowWords(true);
 				}
 				
 				control.getGUI().revalidate();

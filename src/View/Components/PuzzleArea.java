@@ -156,10 +156,11 @@ public class PuzzleArea extends JPanel
 			{
 				WordSearchCell cell = array[i][j];
 				
-
-				if (cell.getChar() != WordSearchCell.EMPTY_CELL)
+				System.out.println("ispartofword: " + cell.isPartOfWord());
+				System.out.println("getshowwords: " + m_control.getGUI().getShowWords());
+				if (cell.isPartOfWord())
 				{
-					if (m_control.getGUI().getIsSolved())
+					if (m_control.getGUI().getShowWords())
 					{
 						g2d.setColor(Color.yellow);
 					}
@@ -167,9 +168,8 @@ public class PuzzleArea extends JPanel
 					{
 						g2d.setColor(Color.white);
 					}
-					
-
-				} else
+				}
+				else
 				{
 					g2d.setColor(Color.white);
 				}
@@ -238,36 +238,7 @@ public class PuzzleArea extends JPanel
 					{ cell.getChar() }, 0, 1, xOff, yOff);
 
 				}
-				else
-				{
-					char rando = RandomHelper.getRandomChar ();
-					// This is all to center the character in the cell
-					int charWidth = metrics.charWidth(rando);
-					int charHeight = metrics.getHeight();
-					
-					String wides = "wm";
-					String smalls = "jlfi";
-					
-					int xOff;
-					
-					if (smalls.indexOf(rando) != -1)
-					{
-						xOff = (i * CELL_SIZE) + charWidth + (60 / charWidth);
-					} else if (wides.indexOf(rando) != -1)
-					{
-						xOff = (i * CELL_SIZE) + charWidth / 2;
-					}
-					else {
-						xOff = (i * CELL_SIZE) + charWidth + (20 / charWidth);
-					}
-
-					int yOff = (j * CELL_SIZE)
-							+ (metrics.getAscent() + (CELL_SIZE - (metrics
-									.getAscent() + metrics.getDescent())) / 2);
-
-					g2d.drawChars(new char[]
-					{ rando }, 0, 1, xOff, yOff);
-				}
+			
 
 			}
 		}

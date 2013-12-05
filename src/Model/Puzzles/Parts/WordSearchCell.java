@@ -4,6 +4,7 @@ public class WordSearchCell extends PuzzleCell
 {
 	public static final char EMPTY_CELL = '#';
 	private char charValue;
+	private boolean isPartOfWord;
 	
 	public WordSearchCell(char value )
 	{
@@ -25,9 +26,12 @@ public class WordSearchCell extends PuzzleCell
 	@Override 
 	public boolean isPartOfWord()
 	{
-		//Not implemented
-		return true;
+		return isPartOfWord;
 	}
 	
+	public void setPartOfWord(boolean value)
+	{
+		isPartOfWord = value;
+	}
 	
 }

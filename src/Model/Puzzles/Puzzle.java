@@ -15,6 +15,8 @@ public abstract class Puzzle<T>
 	
 	protected T[][] cellArray;
 	
+	protected T[][]showWordsArray;
+	
 	public abstract char charAt(int x, int y);
 	
 	public abstract boolean addWord(String word, WordLocation location);

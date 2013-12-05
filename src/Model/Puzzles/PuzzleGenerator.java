@@ -74,7 +74,7 @@ public class PuzzleGenerator
 			
 		}
 		
-		//wordSearchArray = addRandomChars (wordSearchArray);
+		wordSearchArray = addRandomChars (wordSearchArray);
 		
 		WordSearch wordSearch = new WordSearch (wordSearchArray);
 
@@ -103,6 +103,7 @@ public class PuzzleGenerator
 				//System.out.println("row: " + row + "  col: " + col);
 				newPuzzle[row][col] = new WordSearchCell('#');
 				newPuzzle[row][col].setChar(originalPuzzle[row][col].getChar());
+				newPuzzle[row][col].setPartOfWord(originalPuzzle[row][col].isPartOfWord());
 			}
 		}
 		//System.out.printf("new = " + newPuzzle + " orig = " + originalPuzzle);
@@ -183,7 +184,8 @@ public class PuzzleGenerator
 					if (newPuzzle[x][y].getChar() == '#' || newPuzzle[x][y].getChar() == word.charAt(index))
 					{
 						// cell is valid, place char and increment cell
-						newPuzzle[x][y].setChar(word.charAt(index));
+						newPuzzle[x][y].setChar (word.charAt(index));
+						newPuzzle[x][y].setPartOfWord (true);
 						
 						switch (direction)
 						{
@@ -229,7 +231,8 @@ public class PuzzleGenerator
 									y--;
 									break;
 							}
-							newPuzzle[x][y].setChar(originalPuzzle[x][y].getChar ()); 								 
+							newPuzzle[x][y].setChar(originalPuzzle[x][y].getChar ());
+							newPuzzle[x][y].setPartOfWord(false);
 						}
 						
 						// get out and try a new spot
@@ -263,7 +266,10 @@ public class PuzzleGenerator
 		{
 			for (int j = 0; j < size; j++)
 			{
-				
+				if (puzzle[i][j].getChar () == '#')
+				{
+					puzzle[i][j].setChar(RandomHelper.getRandomChar ());
+				}
 			}
 		}
 		
