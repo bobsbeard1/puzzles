@@ -27,6 +27,7 @@ public class GUI extends JFrame
 	CrosswordTab crossTab;
 	WordSearchTab wsTab;
 	int height, width;
+	//dfdfd
 	
 	public GUI(Controller control)
 	{
