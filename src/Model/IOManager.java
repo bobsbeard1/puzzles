@@ -117,8 +117,8 @@ public class IOManager {
 		 PrintWriter printWriter = null;
 	        try {
 	           
-	            printWriter = new PrintWriter(
-	                    System.getProperty("user.home")+"\\Desktop\\puzzleCSV.csv",
+	            printWriter = new PrintWriter( 
+	                    System.getProperty("user.home")+"\\Desktop\\puzzleCSV.csv", 
 	                    "UTF-8");
 	            
 	            WordSearchCell[][] wsArray;
