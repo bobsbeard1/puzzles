@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 
 import Control.Controller;
 import Model.GameModel;
+import Model.IOManager;
+import Model.Puzzles.CrossWord;
+import Model.Puzzles.PuzzleType;
 import Model.Puzzles.WordSearch;
 
 public class ToolBar extends JPanel
@@ -26,9 +29,13 @@ public class ToolBar extends JPanel
 	JButton saveButton;
 	JButton loadButton;
 	Controller controlRef;
+	IOManager ioMan;
+	PuzzleType puzType;
 	
-	public ToolBar(final Controller control)
+	public ToolBar(final Controller control, PuzzleType type)
 	{
+		puzType = type;
+		ioMan = new IOManager();
 		controlRef = control;
 		Dimension size = new Dimension();
 		size.width = 200;
@@ -66,6 +73,8 @@ public class ToolBar extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				if(puzType == PuzzleType.WordSearch)
+			{
 				WordSearch wordSearch = control.getModel().getWordSearch();
 				for (int i = 0; i < wordSearch.getCellArray().length; i++) {
 					for (int j = 0; j < wordSearch.getCellArray().length; j++) {
@@ -74,6 +83,22 @@ public class ToolBar extends JPanel
 						System.out.print(' ');
 					}
 					System.out.println();
+					
+				}
+				ioMan.WriteToCSV(control.getModel().getWordSearch(),PuzzleType.WordSearch);
+			}
+				else {
+					CrossWord crossWord = control.getModel().getCrossWord();
+					for (int i = 0; i < crossWord.getCellArray().length; i++) {
+						for (int j = 0; j < crossWord.getCellArray().length; j++) {
+							
+							System.out.print(crossWord.getCell(j, i).getChar());
+							System.out.print(' ');
+						}
+						System.out.println();
+						
+					}
+					ioMan.WriteToCSV(control.getModel().getCrossWord(),PuzzleType.CrossWord);
 					
 				}
 				

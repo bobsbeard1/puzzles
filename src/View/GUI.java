@@ -12,6 +12,7 @@ import javax.swing.event.ChangeListener;
 import Control.Controller;
 import View.Components.*;
 import Model.*;
+import Model.Puzzles.PuzzleType;
 
 public class GUI extends JFrame
 {
@@ -91,7 +92,7 @@ public class GUI extends JFrame
 		{
 			setLayout(new BorderLayout());
 			wordListArea = new WordListArea(control);
-			toolbar = new ToolBar(control);
+			toolbar = new ToolBar(control,PuzzleType.WordSearch);
 
 			add(toolbar, BorderLayout.WEST);
 			add(puzzleArea2, BorderLayout.CENTER);
@@ -110,7 +111,7 @@ public class GUI extends JFrame
 		{
 			setLayout(new BorderLayout());
 			wordListArea = new WordListArea(control);
-			toolbar = new ToolBar(control);
+			toolbar = new ToolBar(control,PuzzleType.CrossWord);
 
 			add(toolbar, BorderLayout.WEST);
 			add(puzzleArea, BorderLayout.CENTER);
