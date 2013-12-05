@@ -30,7 +30,7 @@ public class WordListArea extends JPanel
 		addWord = new JButton("Add Word");
 		deleteWord = new JButton("Delete Word");
 		inputText = new JTextField(8);
-		wordList = new JList<String> (words);
+		//wordList = new JList<String> (words);
 		setPreferredSize(size);
 		//this.setBackground(Color.red);
 
