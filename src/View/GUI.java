@@ -41,8 +41,8 @@ public class GUI extends JFrame
 		
 		words = controller.getModel ().getWordList ();
 		
-		wsTab = new WordSearchTab(this);
-		crossTab = new CrosswordTab(this);
+		wsTab = new WordSearchTab(control);
+		crossTab = new CrosswordTab(control);
 
 		tab = new JTabbedPane();
 		
@@ -126,6 +126,11 @@ public class GUI extends JFrame
 	{
 		
 		setVisible(true);
+	}
+	
+	public void refreshGUI ()
+	{
+
 	}
 
 }

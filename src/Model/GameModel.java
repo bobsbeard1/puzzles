@@ -35,13 +35,10 @@ public class GameModel
 		//wordList = new WordList(path);
 		wordList.sortByLength();
 		
-		wordList.printList();
+		
 		
 		//wordList.printList();
-		crossWord = (CrossWord) PuzzleGenerator.generatePuzzle(
-				PuzzleType.CrossWord, size, wordList);
-		wordSearch = (WordSearch) PuzzleGenerator.generatePuzzle(
-				PuzzleType.WordSearch, size, wordList);
+		generatePuzzles ();
 	}
 
 	public WordSearch getWordSearch()
@@ -58,5 +55,18 @@ public class GameModel
 	{
 		return wordList;
 	}
+	
+	public void generatePuzzles ()
+	{
+		
+		wordList.printList();
+		
+		crossWord = (CrossWord) PuzzleGenerator.generatePuzzle(
+				PuzzleType.CrossWord, size, wordList);
+		
+		wordSearch = (WordSearch) PuzzleGenerator.generatePuzzle(
+				PuzzleType.WordSearch, size, wordList);
+	}
+	
 
 }

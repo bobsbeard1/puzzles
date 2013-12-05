@@ -146,6 +146,17 @@ public class WordList implements Iterable<String>
 		System.out.println(word + " is not in the list!");
 		return false;
 	}
+	
+	public String[] getAsArray ()
+	{
+		String[] words = new String[list.size()];
+		for (int i = 0; i < list.size(); i++)
+		{
+			words[i] = list.get(i);
+		}
+		
+		return words;
+	}
 
 	@Override
 	public Iterator<String> iterator()
