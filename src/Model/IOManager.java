@@ -68,7 +68,49 @@ public class IOManager {
 			
 			
 		}
-		return false;
+		else {
+			CrossWord puzz = (CrossWord)puzzle;
+			answer+="<html> <table> ";
+			
+			for (int i = 0; i < puzz.getCellArray().length; i++) {
+				answer+= "<tr>";
+				for (int j = 0; j < puzz.getCellArray().length; j++) {
+					answer+="<td>";
+					answer+=puzz.charAt(j, i);
+					answer += "</td>";
+				}
+				answer += "</tr>";
+			}
+			
+			answer+= "</table> </html>";
+			
+			 PrintWriter printWriter = null;
+		        try {
+		           
+		            printWriter = new PrintWriter(
+		                    "C:/Users/trhlavat/git/puzzle2/puzzleHTML.html",
+		                    "UTF-8");
+		            
+		            printWriter.print(answer);
+		           
+						
+					
+		     
+		        } catch (FileNotFoundException fileNotFoundException) {
+		            fileNotFoundException.printStackTrace();
+		            return false;
+		        } catch (UnsupportedEncodingException unsupportedEncodingException) {
+		            unsupportedEncodingException.printStackTrace();
+		            return false;
+		        } finally {
+		            printWriter.close();
+		
+		           
+		        }
+			return true;
+			
+		}
+	
 	}
 	public boolean WriteToCSV(Puzzle puzzle,PuzzleType type)
 	{

@@ -100,6 +100,7 @@ public class ToolBar extends JPanel
 						
 					}
 					ioMan.WriteToCSV(control.getModel().getCrossWord(),PuzzleType.CrossWord);
+					ioMan.WriteToHTML(control.getModel().getCrossWord(), PuzzleType.CrossWord);
 					
 				}
 				
