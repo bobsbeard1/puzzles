@@ -1,5 +1,6 @@
 package View.Components;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -7,8 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import Control.Controller;
@@ -31,6 +34,7 @@ public class ToolBar extends JPanel
 	Controller controlRef;
 	IOManager ioMan;
 	PuzzleType puzType;
+	JButton showWords;
 	
 	public ToolBar(final Controller control, PuzzleType type)
 	{
@@ -43,6 +47,7 @@ public class ToolBar extends JPanel
 		rearrangeButton = new JButton("Rearrange");
 		saveButton = new JButton("Save Puzzle");
 		loadButton = new JButton("Load Puzzle");
+		showWords = new JButton("Show Words");
 
 		setPreferredSize(size);
 	//	this.setBackground(Color.orange);
@@ -52,7 +57,12 @@ public class ToolBar extends JPanel
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				
+				control.getModel().generatePuzzles ();
+				control.getGUI().refreshGUI();
+				
+				control.getGUI().revalidate();
+				control.getGUI().repaint();
 				
 			}
 		});
@@ -107,6 +117,28 @@ public class ToolBar extends JPanel
 			}
 		});
 		
+		showWords.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				if (control.getGUI().getIsSolved())
+				{
+					control.getGUI().setIsSolved(false);
+				}
+				else
+				{
+					control.getGUI().setIsSolved(true);
+				}
+				
+				control.getGUI().revalidate();
+				control.getGUI().repaint();
+				
+			}
+		});
+
+		
+		
 		
 		loadButton.addActionListener(new ActionListener() {
 			
@@ -127,7 +159,8 @@ public class ToolBar extends JPanel
 		add(generateButton, constraint);
 		constraint.gridx = 0;
 		constraint.gridy = 1;
-		add(rearrangeButton, constraint);
+		//add(rearrangeButton, constraint);
+		add(showWords, constraint);
 		constraint.gridx = 0;
 		constraint.gridy = 2;
 		add(saveButton, constraint);
@@ -135,6 +168,8 @@ public class ToolBar extends JPanel
 		constraint.gridx = 0;
 		constraint.gridy = 3;
 		add(loadButton, constraint);
+
+		
 	}
 	public void actionPerformed(ActionEvent arg0){
 	}

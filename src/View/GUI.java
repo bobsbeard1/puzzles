@@ -28,13 +28,14 @@ public class GUI extends JFrame
 	CrosswordTab crossTab;
 	WordSearchTab wsTab;
 	int height, width;
+	boolean isSolved;
 	//dfdfd
 	
 	public GUI(Controller control)
 	{
 		
-		puzzleArea = new PuzzleArea();
-		puzzleArea2 = new PuzzleArea();
+		puzzleArea = new PuzzleArea(control);
+		puzzleArea2 = new PuzzleArea(control);
 		controller = control;
 		setTitle("WORD PUZZLES!");
 		setSize(1250, 900);
@@ -132,7 +133,29 @@ public class GUI extends JFrame
 	
 	public void refreshGUI ()
 	{
+		if (tab.getSelectedIndex() == 1)
+		{
 
+			puzzleArea
+					.setActivePuzzle(controller.getModel().getCrossWord());
+		}
+
+		else
+		{
+			puzzleArea2.setActivePuzzle(controller.getModel()
+					.getWordSearch());
+
+		}
+	}
+	
+	public boolean getIsSolved ()
+	{
+		return isSolved;
+	}
+	
+	public void setIsSolved (boolean value)
+	{
+		isSolved = value;
 	}
 
 }

@@ -74,7 +74,7 @@ public class PuzzleGenerator
 			
 		}
 		
-		wordSearchArray = addRandomChars (wordSearchArray);
+		//wordSearchArray = addRandomChars (wordSearchArray);
 		
 		WordSearch wordSearch = new WordSearch (wordSearchArray);
 
@@ -263,10 +263,7 @@ public class PuzzleGenerator
 		{
 			for (int j = 0; j < size; j++)
 			{
-				if (puzzle[i][j].getChar () == '#')
-				{
-					puzzle[i][j].setChar (RandomHelper.getRandomChar ());
-				}
+				
 			}
 		}
 		
@@ -354,8 +351,14 @@ public class PuzzleGenerator
 		if (wordMap.isEmpty())
 		{
 			// Test down/across
-			// location = new WordLocation(19, 0, 19, length);
-			location = new WordLocation(0, 0, length, 0);
+			//location = new WordLocation(19, 0, 19, length);
+			
+			Random rand = new Random ();
+			System.out.println(word + " " + length);
+			int seedX = rand.nextInt(20-length);
+			int seedY = rand.nextInt(20);
+			
+			location = new WordLocation(seedX, seedY, seedX+length, seedY);
 		} else
 		{
 			location = findWordLocation(word, array);

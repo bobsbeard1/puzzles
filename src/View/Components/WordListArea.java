@@ -16,6 +16,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class WordListArea extends JPanel
 {
@@ -48,14 +50,14 @@ public class WordListArea extends JPanel
 		addWord = new JButton("Add Word");
 		deleteWord = new JButton("Delete Word");
 		inputText = new JTextField(8);
-<<<<<<< HEAD
+
 		wordList = new JList<String> (listModel);
 		wordList.setPreferredSize(new Dimension (180, 700));
-=======
-		//wordList = new JList<String> (words);
->>>>>>> branch 'master' of https://github.com/bobsbeard1/puzzles.git
+
 		setPreferredSize(size);
 		//this.setBackground(Color.red);
+		
+		addWord.addChangeListener(new buttonChangeListener ());
 
 		addWord.addActionListener(new ActionListener() {
 			
@@ -65,8 +67,10 @@ public class WordListArea extends JPanel
 				System.out.println(inputText.getText ());
 				m_wordList.addWord (inputText.getText ());
 				listModel.addElement(inputText.getText ());
+				inputText.setText ("");
 				
 				m_control.getModel().generatePuzzles ();
+				m_control.getGUI().refreshGUI();
 				
 				m_control.getGUI().revalidate();
 				m_control.getGUI().repaint();
@@ -86,6 +90,7 @@ public class WordListArea extends JPanel
 				m_wordList.deleteWord(deletedWord);
 				
 				m_control.getModel().generatePuzzles ();
+				m_control.getGUI().refreshGUI();
 				
 				m_control.getGUI().revalidate();
 				m_control.getGUI().repaint();
@@ -99,5 +104,16 @@ public class WordListArea extends JPanel
 		
 		
 		
+	}
+	
+	class buttonChangeListener implements ChangeListener
+	{
+
+		@Override
+		public void stateChanged(ChangeEvent arg0)
+		{
+
+		}
+
 	}
 }

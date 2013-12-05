@@ -10,16 +10,20 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import Control.Controller;
 import Model.Puzzles.*;
 import Model.Puzzles.Parts.*;
+import Utility.RandomHelper;
 
 public class PuzzleArea extends JPanel
 {
 	private static final int CELL_SIZE = 40;
 	Puzzle activePuzzle;
+	Controller m_control;
 
-	public PuzzleArea()
+	public PuzzleArea(Controller control)
 	{
+		m_control = control;
 		setPreferredSize(new Dimension(CELL_SIZE * 20, CELL_SIZE * 20));
 	//	this.setBackground(Color.blue);
 	}
@@ -151,14 +155,23 @@ public class PuzzleArea extends JPanel
 			for (int j = 0; j < array[0].length; j++)
 			{
 				WordSearchCell cell = array[i][j];
+				
 
 				if (cell.getChar() != WordSearchCell.EMPTY_CELL)
 				{
-					g2d.setColor(Color.white);
+					if (m_control.getGUI().getIsSolved())
+					{
+						g2d.setColor(Color.yellow);
+					}
+					else
+					{
+						g2d.setColor(Color.white);
+					}
+					
 
 				} else
 				{
-					g2d.setColor(Color.black);
+					g2d.setColor(Color.white);
 				}
 
 				g2d.fillRect((i * CELL_SIZE), (j * CELL_SIZE), CELL_SIZE,
@@ -225,6 +238,36 @@ public class PuzzleArea extends JPanel
 					{ cell.getChar() }, 0, 1, xOff, yOff);
 
 				}
+				else
+				{
+					char rando = RandomHelper.getRandomChar ();
+					// This is all to center the character in the cell
+					int charWidth = metrics.charWidth(rando);
+					int charHeight = metrics.getHeight();
+					
+					String wides = "wm";
+					String smalls = "jlfi";
+					
+					int xOff;
+					
+					if (smalls.indexOf(rando) != -1)
+					{
+						xOff = (i * CELL_SIZE) + charWidth + (60 / charWidth);
+					} else if (wides.indexOf(rando) != -1)
+					{
+						xOff = (i * CELL_SIZE) + charWidth / 2;
+					}
+					else {
+						xOff = (i * CELL_SIZE) + charWidth + (20 / charWidth);
+					}
+
+					int yOff = (j * CELL_SIZE)
+							+ (metrics.getAscent() + (CELL_SIZE - (metrics
+									.getAscent() + metrics.getDescent())) / 2);
+
+					g2d.drawChars(new char[]
+					{ rando }, 0, 1, xOff, yOff);
+				}
 
 			}
 		}
@@ -239,6 +282,7 @@ public class PuzzleArea extends JPanel
 	@Override
 	public void paintComponent(Graphics g)
 	{
+		
 		super.paintComponent(g);
 		drawPuzzle(g);
 	}

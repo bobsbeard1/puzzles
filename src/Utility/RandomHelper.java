@@ -9,11 +9,12 @@ import java.util.Random;
  */
 public class RandomHelper
 {	
-	private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
+	private static final String alphabetLowercase = "abcdefghijklmnopqrstuvwxyz";
+	private static final String alphabetUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	public static Random rand = new Random();
 	
 	public static char getRandomChar()
 	{
-		return alphabet.charAt(rand.nextInt(alphabet.length() -1));
+		return alphabetLowercase.charAt(rand.nextInt(alphabetLowercase.length() -1));
 	}
 }
