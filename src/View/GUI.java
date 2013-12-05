@@ -91,7 +91,7 @@ public class GUI extends JFrame
 		{
 			setLayout(new BorderLayout());
 			wordListArea = new WordListArea(control);
-			toolbar = new ToolBar();
+			toolbar = new ToolBar(control);
 
 			add(toolbar, BorderLayout.WEST);
 			add(puzzleArea2, BorderLayout.CENTER);
@@ -110,7 +110,7 @@ public class GUI extends JFrame
 		{
 			setLayout(new BorderLayout());
 			wordListArea = new WordListArea(control);
-			toolbar = new ToolBar();
+			toolbar = new ToolBar(control);
 
 			add(toolbar, BorderLayout.WEST);
 			add(puzzleArea, BorderLayout.CENTER);
