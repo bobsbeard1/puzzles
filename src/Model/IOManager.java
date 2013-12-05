@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import javax.swing.*;
+
 
 /**
  * A Class for reading/writing files
@@ -47,7 +49,7 @@ public class IOManager {
 						}
 						printWriter.println("");
 					}
-					
+					JOptionPane.showMessageDialog(null, "Save Successful!");
 					break;
 				case CrossWord:
 					cwArray =((CrossWord)puzzle).getCellArray();
@@ -62,7 +64,7 @@ public class IOManager {
 						}
 						printWriter.println("");
 					}
-					
+					JOptionPane.showMessageDialog(null, "Save Successful!");
 					break;
 
 				default:
@@ -77,6 +79,7 @@ public class IOManager {
 	            return false;
 	        } finally {
 	            printWriter.close();
+	
 	           
 	        }
 	        return true;
