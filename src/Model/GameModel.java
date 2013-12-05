@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import Model.Puzzles.CrossWord;
@@ -18,7 +19,7 @@ import Utility.FileManager;
 public class GameModel
 {
 	WordList wordList;
-	String path;
+	InputStream path;
 	CrossWord crossWord;
 	WordSearch wordSearch;
 	int size;
@@ -26,12 +27,12 @@ public class GameModel
 	public GameModel() throws IOException
 	{
 		size = 20;
-		
-		path = "goodwords.txt";
+		//path = "goodwords.txt";
+		path = this.getClass().getResourceAsStream("goodwords.txt");
 		//wordList = new WordList(FileManager.getWordListFromFile(path));
 		
 		//path = "goodwords.txt";
-		wordList = new WordList(FileManager.getWordListFromFile(path));
+		wordList = new WordList(FileManager.getWordListFromStream(path));
 		//wordList = new WordList(path);
 		wordList.sortByLength();
 		

@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -45,6 +47,7 @@ public class FileManager
 		{
 			System.out.println("csv");
 			System.out.println("");
+			//InputStream inStream = this.getClassLoader().getResourceAsStream ();
 			BufferedReader CSVFile = new BufferedReader(new FileReader(path));
 
 			String dataRow = CSVFile.readLine();
@@ -109,4 +112,19 @@ public class FileManager
 		}
 		return stringList;
 	}
+	
+	public static ArrayList<String> getWordListFromStream (InputStream stream) throws IOException
+	{
+		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+
+		ArrayList<String> stringList = new ArrayList<String>();
+		String line;
+		while ((line = reader.readLine()) != null)
+		{
+			stringList.add(line);
+		}
+		reader.close();
+		return stringList;
+	}
+	
 }
