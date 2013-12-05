@@ -48,8 +48,12 @@ public class WordListArea extends JPanel
 		addWord = new JButton("Add Word");
 		deleteWord = new JButton("Delete Word");
 		inputText = new JTextField(8);
+<<<<<<< HEAD
 		wordList = new JList<String> (listModel);
 		wordList.setPreferredSize(new Dimension (180, 700));
+=======
+		//wordList = new JList<String> (words);
+>>>>>>> branch 'master' of https://github.com/bobsbeard1/puzzles.git
 		setPreferredSize(size);
 		//this.setBackground(Color.red);
 
