@@ -10,13 +10,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class WordListArea extends JPanel
 {
 	JButton addWord;
 	JButton deleteWord;
-	JList wordList;
+	JList<String> wordList;
 	JTextField inputText;
 	public WordListArea()
 	{
@@ -27,6 +28,7 @@ public class WordListArea extends JPanel
 		addWord = new JButton("Add Word");
 		deleteWord = new JButton("Delete Word");
 		inputText = new JTextField(8);
+		wordList = new JList<String> (words);
 		setPreferredSize(size);
 		//this.setBackground(Color.red);
 
@@ -35,7 +37,7 @@ public class WordListArea extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println("Add");
+				System.out.println(inputText.getText ());
 				
 			}
 		});

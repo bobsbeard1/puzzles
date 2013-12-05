@@ -11,6 +11,7 @@ import javax.swing.event.ChangeListener;
 
 import Control.Controller;
 import View.Components.*;
+import Model.*;
 
 public class GUI extends JFrame
 {
@@ -20,6 +21,7 @@ public class GUI extends JFrame
 	PuzzleArea puzzleArea2;
 	ToolBar toolbar;
 	WordListArea wordListArea;
+	WordList words;
 	Controller controller;
 	JTabbedPane tab;
 	CrosswordTab crossTab;
@@ -36,8 +38,11 @@ public class GUI extends JFrame
 		setSize(1250, 900);
 		height = getSize().height;
 		width = getSize().width;
-		wsTab = new WordSearchTab();
-		crossTab = new CrosswordTab();
+		
+		words = controller.getModel ().getWordList ();
+		
+		wsTab = new WordSearchTab(this);
+		crossTab = new CrosswordTab(this);
 
 		tab = new JTabbedPane();
 		
@@ -81,7 +86,7 @@ public class GUI extends JFrame
 		private static final long serialVersionUID = 1L;
 	
 		
-		public WordSearchTab()
+		public WordSearchTab(Controller control)
 		{
 			setLayout(new BorderLayout());
 			wordListArea = new WordListArea();
@@ -100,7 +105,7 @@ public class GUI extends JFrame
 
 		private static final long serialVersionUID = 1L;
 
-		public CrosswordTab()
+		public CrosswordTab(Controller control)
 		{
 			setLayout(new BorderLayout());
 			wordListArea = new WordListArea();

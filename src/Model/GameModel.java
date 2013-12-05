@@ -53,5 +53,10 @@ public class GameModel
 	{
 		return crossWord;
 	}
+	
+	public WordList getWordList ()
+	{
+		return wordList;
+	}
 
 }
