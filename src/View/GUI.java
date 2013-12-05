@@ -89,7 +89,7 @@ public class GUI extends JFrame
 		public WordSearchTab(Controller control)
 		{
 			setLayout(new BorderLayout());
-			wordListArea = new WordListArea();
+			wordListArea = new WordListArea(control);
 			toolbar = new ToolBar();
 
 			add(toolbar, BorderLayout.WEST);
@@ -108,7 +108,7 @@ public class GUI extends JFrame
 		public CrosswordTab(Controller control)
 		{
 			setLayout(new BorderLayout());
-			wordListArea = new WordListArea();
+			wordListArea = new WordListArea(control);
 			toolbar = new ToolBar();
 
 			add(toolbar, BorderLayout.WEST);

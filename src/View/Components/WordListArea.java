@@ -1,5 +1,6 @@
 package View.Components;
 
+import Control.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -19,11 +20,12 @@ public class WordListArea extends JPanel
 	JButton deleteWord;
 	JList<String> wordList;
 	JTextField inputText;
-	public WordListArea()
+	public WordListArea(Controller control)
 	{
 		Dimension size = getPreferredSize();
 		size.width = 200;
 
+		
 		
 		addWord = new JButton("Add Word");
 		deleteWord = new JButton("Delete Word");
