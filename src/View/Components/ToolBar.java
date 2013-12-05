@@ -86,6 +86,7 @@ public class ToolBar extends JPanel
 					
 				}
 				ioMan.WriteToCSV(control.getModel().getWordSearch(),PuzzleType.WordSearch);
+				ioMan.WriteToHTML(control.getModel().getWordSearch(), PuzzleType.WordSearch);
 			}
 				else {
 					CrossWord crossWord = control.getModel().getCrossWord();

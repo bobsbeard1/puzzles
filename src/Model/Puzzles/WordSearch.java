@@ -19,7 +19,8 @@ public class WordSearch extends Puzzle
 	@Override
 	public char charAt(int x, int y)
 	{
-		return (Character)cellArray[x][y];
+		return ((WordSearchCell)(cellArray[x][y])).getChar();
+		
 	}
 	
 	public WordSearchCell getCell(int x, int y)
